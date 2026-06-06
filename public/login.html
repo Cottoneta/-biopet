@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login BioPet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; font-family:'Nunito',sans-serif; }
+
+    body {
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:#f5f5f5;
+      overflow:hidden;
+      position:relative;
+    }
+
+    body::before {
+      content:"";
+      position:absolute;
+      width:350px; height:350px;
+      border-radius:50%;
+      background:rgba(255,196,0,.08);
+      top:-100px; left:-100px;
+    }
+    body::after {
+      content:"";
+      position:absolute;
+      width:300px; height:300px;
+      border-radius:50%;
+      background:rgba(255,196,0,.08);
+      bottom:-100px; right:-100px;
+    }
+
+    /* ── CARD ── */
+    .login-container {
+      width:950px;
+      min-height:550px;
+      background:white;
+      border-radius:30px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:40px 60px;
+      box-shadow:0 15px 40px rgba(0,0,0,.08);
+      position:relative;
+      z-index:1;
+      transition: min-height .3s;
+    }
+
+    .left-side {
+      width:50%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+    .left-side img { width:420px; object-fit:contain; }
+
+    .right-side {
+      width:40%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    /* ── PANELS ── */
+    .panel { width:100%; max-width:350px; }
+    #registerPanel { display:none; }
+
+    h1 { font-size:48px; color:#ffb800; margin-bottom:10px; font-weight:800; }
+    .subtitle { color:#777; margin-bottom:30px; font-size:15px; }
+
+    /* ── INPUTS ── */
+    .input-group { margin-bottom:16px; }
+    .input-group input {
+      width:100%;
+      padding:16px;
+      border:none;
+      background:#f7f7f7;
+      border-radius:14px;
+      outline:none;
+      font-size:15px;
+      transition:.3s;
+    }
+    .input-group input:focus {
+      background:white;
+      box-shadow:0 0 0 2px #ffb800;
+    }
+    .input-group input.error { box-shadow:0 0 0 2px #ff4d4d; }
+
+    /* ── BUTTON ── */
+    .login-btn {
+      width:100%;
+      padding:16px;
+      border:none;
+      border-radius:14px;
+      background:#ffb800;
+      color:white;
+      font-size:16px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.3s;
+      margin-top:6px;
+    }
+    .login-btn:hover { transform:translateY(-2px); background:#e6a700; }
+    .login-btn:disabled { opacity:.6; cursor:not-allowed; transform:none; }
+
+    /* ── MESSAGE ── */
+    .msg {
+      margin-top:12px;
+      padding:10px 14px;
+      border-radius:10px;
+      font-size:14px;
+      font-weight:600;
+      display:none;
+    }
+    .msg.error   { background:#fff0f0; color:#cc3333; display:block; }
+    .msg.success { background:#f0fff4; color:#2d8a4e; display:block; }
+
+    /* ── EXTRA LINKS ── */
+    .extra-links {
+      margin-top:18px;
+      display:flex;
+      justify-content:space-between;
+      font-size:14px;
+    }
+    .extra-links a {
+      text-decoration:none;
+      color:#888;
+      cursor:pointer;
+      transition:.3s;
+    }
+    .extra-links a:hover { color:#ffb800; }
+
+    /* ── SOCIAL ── */
+    .social-login { margin-top:28px; text-align:center; }
+    .social-login p { margin-bottom:12px; color:#888; font-size:14px; }
+    .social-buttons { display:flex; gap:12px; }
+    .social-buttons button {
+      flex:1;
+      padding:13px;
+      border:none;
+      border-radius:12px;
+      background:#f5f5f5;
+      cursor:pointer;
+      font-weight:700;
+      font-size:14px;
+      transition:.3s;
+    }
+    .social-buttons button:hover { background:#ececec; }
+
+    /* ── BACK LINK ── */
+    .back-link {
+      margin-top:18px;
+      text-align:center;
+      font-size:14px;
+      color:#888;
+    }
+    .back-link a { color:#ffb800; cursor:pointer; font-weight:700; text-decoration:none; }
+    .back-link a:hover { text-decoration:underline; }
+
+    /* ── PANEL TRANSITION ── */
+    .panel { animation: fadeIn .25s ease; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+    @media(max-width:950px){
+      .login-container { width:95%; flex-direction:column; padding:40px 25px; }
+      .left-side, .right-side { width:100%; }
+      .left-side { margin-bottom:20px; }
+      .left-side img { width:220px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-container" id="card">
+
+  <!-- IZQUIERDA -->
+  <div class="left-side">
+    <img src="./img/login.png" alt="Mascotas BioPet">
+  </div>
+
+  <!-- DERECHA -->
+  <div class="right-side">
+
+    <!-- ══ PANEL LOGIN ══ -->
+    <div class="panel" id="loginPanel">
+      <h1>Login</h1>
+      <p class="subtitle">Bienvenido nuevamente a BioPet</p>
+
+      <div class="input-group">
+        <input type="email" id="log-email" placeholder="Correo electrónico" autocomplete="email"/>
+      </div>
+      <div class="input-group">
+        <input type="password" id="log-password" placeholder="Contraseña" autocomplete="current-password"/>
+      </div>
+
+      <button class="login-btn" id="loginBtn" onclick="handleLogin()">Ingresar</button>
+      <div class="msg" id="loginMsg"></div>
+
+      <div class="extra-links">
+        <a href="#">¿Olvidaste tu contraseña?</a>
+        <a onclick="showRegister()">Crear cuenta</a>
+      </div>
+
+      <div class="social-login">
+        <p>O inicia sesión con</p>
+        <div class="social-buttons">
+          <button onclick="socialLogin('Google')">Google</button>
+          <button onclick="socialLogin('Facebook')">Facebook</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PANEL REGISTRO ══ -->
+    <div class="panel" id="registerPanel">
+      <h1>Registro</h1>
+      <p class="subtitle">Crea tu cuenta en BioPet 🐾</p>
+
+      <div class="input-group">
+        <input type="text" id="reg-username" placeholder="Nombre de usuario" autocomplete="username"/>
+      </div>
+      <div class="input-group">
+        <input type="email" id="reg-email" placeholder="Correo electrónico" autocomplete="email"/>
+      </div>
+      <div class="input-group">
+        <input type="password" id="reg-password" placeholder="Contraseña (mín. 6 caracteres)" autocomplete="new-password"/>
+      </div>
+      <div class="input-group">
+        <input type="password" id="reg-password2" placeholder="Confirmar contraseña" autocomplete="new-password"/>
+      </div>
+
+      <button class="login-btn" id="registerBtn" onclick="handleRegister()">Crear cuenta</button>
+      <div class="msg" id="registerMsg"></div>
+
+      <div class="back-link">
+        ¿Ya tienes cuenta? <a onclick="showLogin()">Iniciar sesión</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const API_URL = 'http://localhost:3000';
+
+  // ── Mostrar / ocultar paneles ──
+  function showRegister() {
+    document.getElementById('loginPanel').style.display = 'none';
+    document.getElementById('registerPanel').style.display = 'block';
+    clearMsgs();
+  }
+  function showLogin() {
+    document.getElementById('registerPanel').style.display = 'none';
+    document.getElementById('loginPanel').style.display = 'block';
+    clearMsgs();
+  }
+  function clearMsgs() {
+    ['loginMsg','registerMsg'].forEach(id => {
+      const el = document.getElementById(id);
+      el.textContent = '';
+      el.className = 'msg';
+    });
+  }
+
+  function showMsg(id, text, type) {
+    const el = document.getElementById(id);
+    el.textContent = text;
+    el.className = `msg ${type}`;
+  }
+
+  // ── LOGIN ──
+  async function handleLogin() {
+    const email    = document.getElementById('log-email').value.trim();
+    const password = document.getElementById('log-password').value;
+
+    if (!email || !password) {
+      showMsg('loginMsg', 'Por favor completa todos los campos.', 'error');
+      return;
+    }
+
+    const btn = document.getElementById('loginBtn');
+    btn.disabled = true;
+    btn.textContent = 'Ingresando...';
+
+    try {
+      const res = await fetch(`${API_URL}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        // Guardar token Y email para la página de contacto
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('biopet_user', email);
+        localStorage.setItem('biopet_username', data.username || email);
+        showMsg('loginMsg', '¡Bienvenido! Redirigiendo...', 'success');
+        setTimeout(() => window.location.href = "/inicio", 900);
+      } else {
+        showMsg('loginMsg', data.error || 'Credenciales inválidas.', 'error');
+        btn.disabled = false;
+        btn.textContent = 'Ingresar';
+      }
+    } catch (err) {
+      showMsg('loginMsg', 'No se pudo conectar con el servidor.', 'error');
+      btn.disabled = false;
+      btn.textContent = 'Ingresar';
+    }
+  }
+
+  // ── REGISTRO ──
+  async function handleRegister() {
+    const username  = document.getElementById('reg-username').value.trim();
+    const email     = document.getElementById('reg-email').value.trim();
+    const password  = document.getElementById('reg-password').value;
+    const password2 = document.getElementById('reg-password2').value;
+
+    if (!username || !email || !password || !password2) {
+      showMsg('registerMsg', 'Por favor completa todos los campos.', 'error');
+      return;
+    }
+    if (password.length < 6) {
+      showMsg('registerMsg', 'La contraseña debe tener al menos 6 caracteres.', 'error');
+      return;
+    }
+    if (password !== password2) {
+      showMsg('registerMsg', 'Las contraseñas no coinciden.', 'error');
+      return;
+    }
+
+    const btn = document.getElementById('registerBtn');
+    btn.disabled = true;
+    btn.textContent = 'Creando cuenta...';
+
+    try {
+      const res = await fetch(`${API_URL}/registrar`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, email, password })
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        showMsg('registerMsg', '¡Cuenta creada! Ahora inicia sesión 🐾', 'success');
+        setTimeout(() => {
+          // Pre-llenar el email en el login
+          showLogin();
+          document.getElementById('log-email').value = email;
+        }, 1500);
+      } else {
+        showMsg('registerMsg', data.error || 'Error al crear la cuenta.', 'error');
+      }
+    } catch (err) {
+      showMsg('registerMsg', 'No se pudo conectar con el servidor.', 'error');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Crear cuenta';
+    }
+  }
+
+  // ── SOCIAL (placeholder) ──
+  function socialLogin(provider) {
+    alert(`Login con ${provider} próximamente 🐾`);
+  }
+
+  // ── Enter key support ──
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    if (document.getElementById('registerPanel').style.display === 'block') {
+      handleRegister();
+    } else {
+      handleLogin();
+    }
+  });
+
+  // ── Si ya hay sesión, redirigir ──
+  if (localStorage.getItem('token') && localStorage.getItem('biopet_user')) {
+    window.location.href = "/inicio";
+  }
+</script>
+</body>
+</html>

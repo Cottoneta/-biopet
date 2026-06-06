@@ -1,0 +1,2416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BioPet Pets</title>
+
+<!-- TIPOGRAFIAS -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#FFF6D8;
+  font-family:'Nunito', sans-serif;
+  overflow-x:hidden;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+nav{
+  width:100%;
+  padding:25px 60px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo img{
+  width:110px;
+  transition:0.3s;
+}
+
+.logo img:hover{
+  transform:scale(1.05);
+}
+
+.menu{
+  display:flex;
+  gap:40px;
+}
+
+.menu a{
+  text-decoration:none;
+  color:#7DA2D6;
+  font-weight:800;
+  transition:0.3s;
+}
+
+.menu a:hover{
+  transform:scale(1.1);
+  color:#5D87C2;
+}
+
+.btn-nav{
+  padding:14px 28px;
+  border:none;
+  border-radius:50px;
+  background:#A7C7FF;
+  color:white;
+  font-weight:800;
+  cursor:pointer;
+  transition:0.3s;
+  box-shadow:0 8px 18px rgba(125,162,214,0.25);
+}
+
+.btn-nav:hover{
+  transform:scale(1.05);
+  border:2px solid white;
+}
+
+/* =========================
+   TITULO
+========================= */
+
+.section-header{
+  text-align:center;
+  margin-top:40px;
+}
+
+.section-title{
+  font-family:'Chewy', cursive;
+  font-size:70px;
+  color:#7DA2D6;
+
+  text-shadow:
+  4px 4px 0px #ffffff,
+  8px 8px 15px rgba(0,0,0,0.12);
+}
+
+.section-sub{
+  color:#6E89A8;
+  font-size:18px;
+  font-weight:700;
+  margin-top:15px;
+}
+
+/* =========================
+   BOTONES CATEGORIAS
+========================= */
+
+.category-tabs{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:18px;
+  margin-top:40px;
+  padding:0 20px;
+}
+
+.cat-btn{
+  padding:14px 30px;
+  border:none;
+  border-radius:50px;
+  background:#A7C7FF;
+  color:white;
+  font-weight:800;
+  cursor:pointer;
+  transition:0.3s;
+  font-size:15px;
+  box-shadow:0 8px 18px rgba(125,162,214,0.2);
+}
+
+.cat-btn:hover{
+  transform:translateY(-4px) scale(1.05);
+  border:2px solid white;
+}
+
+.cat-btn.active{
+  background:#7DA2D6;
+}
+
+/* =========================
+   CARRUSEL
+========================= */
+
+.carousel-container{
+  width:100%;
+  margin-top:70px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+  min-height:500px;
+}
+
+.carousel-stage{
+  width:100%;
+  height:500px;
+  position:relative;
+}
+
+.reptile-item{
+  position:absolute;
+  transition:0.5s;
+  cursor:pointer;
+}
+
+/* POSICIONES */
+
+.pos-center{
+  left:50%;
+  top:50%;
+  transform:translate(-50%, -50%) scale(1);
+  z-index:5;
+}
+
+.pos-side1{
+  left:25%;
+  top:55%;
+  transform:translate(-50%, -50%) scale(0.8);
+  opacity:0.7;
+}
+
+.pos-side2{
+  left:75%;
+  top:55%;
+  transform:translate(-50%, -50%) scale(0.8);
+  opacity:0.7;
+}
+
+.pos-far1{
+  left:8%;
+  top:60%;
+  transform:translate(-50%, -50%) scale(0.6);
+  opacity:0.4;
+}
+
+.pos-far2{
+  left:92%;
+  top:60%;
+  transform:translate(-50%, -50%) scale(0.6);
+  opacity:0.4;
+}
+
+/* =========================
+   TARJETAS
+========================= */
+
+.pet-card{
+
+  width:280px;
+  background:#FFECC4;
+  border-radius:35px;
+  overflow:visible;
+  position:relative;
+  transition:0.4s;
+
+  box-shadow:0 10px 20px rgba(0,0,0,0.08);
+}
+
+.pet-card:hover{
+  transform:translateY(-10px) scale(1.03);
+}
+
+.pet-image{
+  width:100%;
+  height:220px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+}
+
+.pet-image img{
+  width:320px;
+  position:absolute;
+  top:-30px;
+  transition:0.4s;
+}
+
+.pet-card:hover .pet-image img{
+  transform:scale(1.05) rotate(-2deg);
+}
+
+.pet-content{
+  padding:25px;
+  padding-top:150px;
+  text-align:center;
+}
+
+.pet-content h3{
+  color:#7DA2D6;
+  font-size:30px;
+  margin-bottom:10px;
+  font-family:'Chewy', cursive;
+}
+
+.pet-content p{
+  color:#6E89A8;
+  font-weight:700;
+  font-size:15px;
+}
+
+/* =========================
+   FLECHAS
+========================= */
+
+.carousel-arrows{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  margin-top:20px;
+}
+
+.arrow-btn{
+  width:60px;
+  height:60px;
+  border:none;
+  border-radius:50%;
+  background:#A7C7FF;
+  color:white;
+  font-size:25px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.arrow-btn:hover{
+  transform:scale(1.1);
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.info-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.4);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+.info-overlay.open{
+  display:flex;
+}
+
+.info-panel{
+  width:850px;
+  max-width:95%;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(10px);
+  border-radius:35px;
+  padding:40px;
+  display:flex;
+  gap:35px;
+  position:relative;
+  max-height:90vh;
+  overflow:hidden;
+}
+
+.btn-close{
+  position:absolute;
+  right:25px;
+  top:20px;
+  border:none;
+  background:none;
+  font-size:28px;
+  cursor:pointer;
+  color:#7DA2D6;
+}
+
+.info-img-side img{
+  width:280px;
+}
+
+.info-title{
+  font-family:'Chewy', cursive;
+  color:#7DA2D6;
+  font-size:45px;
+  margin-bottom:12px;
+}
+
+/* ---- TABS DEL MODAL ---- */
+
+.modal-tabs{
+  display:flex;
+  gap:10px;
+  margin-bottom:18px;
+}
+
+.modal-tab-btn{
+  padding:9px 22px;
+  border:none;
+  border-radius:50px;
+  background:#E8F0FF;
+  color:#7DA2D6;
+  font-weight:800;
+  font-size:14px;
+  cursor:pointer;
+  transition:0.25s;
+  font-family:'Nunito', sans-serif;
+}
+
+.modal-tab-btn:hover{
+  background:#A7C7FF;
+  color:white;
+}
+
+.modal-tab-btn.active{
+  background:#7DA2D6;
+  color:white;
+}
+
+/* ---- CONTENIDO DE TABS ---- */
+
+.tab-content{
+  display:none;
+  overflow-y:auto;
+  max-height:calc(90vh - 200px);
+  padding-right:6px;
+}
+
+.tab-content.active{
+  display:block;
+}
+
+.tab-content::-webkit-scrollbar{
+  width:5px;
+}
+.tab-content::-webkit-scrollbar-thumb{
+  background:#A7C7FF;
+  border-radius:10px;
+}
+
+.info-table{
+  width:100%;
+}
+
+.info-table td{
+  padding:10px;
+  color:#6E89A8;
+  font-weight:700;
+}
+
+.info-tags{
+  margin-top:20px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.info-tag{
+  padding:10px 18px;
+  border-radius:50px;
+  background:#A7C7FF;
+  color:white;
+  font-size:14px;
+  font-weight:700;
+}
+
+/* ---- SECCION DE CUIDADOS ---- */
+
+.care-section{
+  margin-bottom:18px;
+}
+
+.care-section-title{
+  font-family:'Chewy', cursive;
+  font-size:20px;
+  color:#7DA2D6;
+  margin-bottom:8px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.care-section-title .icon{
+  font-size:22px;
+}
+
+.care-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.care-tag{
+  padding:7px 14px;
+  border-radius:50px;
+  font-size:13px;
+  font-weight:700;
+  color:white;
+}
+
+.care-tag.danger{
+  background:#FF8FA3;
+}
+
+.care-tag.warning{
+  background:#FFB347;
+}
+
+.care-tag.delicate{
+  background:#C9A7FF;
+}
+
+.care-tag.prone{
+  background:#FF9E9E;
+}
+
+.care-tag.food{
+  background:#7DD6A0;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  margin-top:100px;
+  background:#A7C7FF;
+  color:white;
+  text-align:center;
+  padding:22px;
+  font-weight:700;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+  nav{
+    flex-direction:column;
+    gap:20px;
+  }
+
+  .menu{
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+  .section-title{
+    font-size:50px;
+  }
+
+  .info-panel{
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+  }
+
+  .modal-tabs{
+    justify-content:center;
+  }
+
+  .care-list{
+    justify-content:center;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+
+  <div class="logo">
+    <img src="./img/logo.png">
+  </div>
+
+  <div class="menu">
+
+    <a href="/inicio">Inicio</a>
+    <a href="/pets">Mascotas</a>
+    <a href="/contacto">Contacto</a>
+
+  </div>
+
+  <button class="btn-nav"
+  onclick="window.location.href='/login'">
+
+    Iniciar sesión
+
+  </button>
+
+</nav>
+
+<!-- TITULO -->
+
+<div class="section-header">
+
+  <h1 class="section-title">
+    Información de Mascotas
+  </h1>
+
+  <p class="section-sub">
+    Explora diferentes especies y aprende sobre ellas
+  </p>
+
+</div>
+
+<!-- BOTONES -->
+
+<div class="category-tabs">
+
+  <button class="cat-btn active"
+  onclick="changeCategory('perros', this)">
+    Perros
+  </button>
+
+  <button class="cat-btn"
+  onclick="changeCategory('gatos', this)">
+    Gatos
+  </button>
+
+  <button class="cat-btn"
+  onclick="changeCategory('aves', this)">
+    Aves
+  </button>
+
+  <button class="cat-btn"
+  onclick="changeCategory('roedores', this)">
+    Roedores
+  </button>
+
+  <button class="cat-btn"
+  onclick="changeCategory('peces', this)">
+    Peces
+  </button>
+
+  <button class="cat-btn"
+  onclick="changeCategory('reptiles', this)">
+    Reptiles
+  </button>
+
+  <button class="cat-btn"
+  onclick="changeCategory('exoticos', this)">
+    Exóticos
+  </button>
+
+</div>
+
+<!-- CARRUSEL -->
+
+<div class="carousel-container">
+
+  <div class="carousel-stage"
+  id="carouselStage"></div>
+
+</div>
+
+<div class="carousel-arrows">
+
+  <button class="arrow-btn"
+  onclick="rotate(-1)">
+    ←
+  </button>
+
+  <button class="arrow-btn"
+  onclick="rotate(1)">
+    →
+  </button>
+
+</div>
+
+<!-- MODAL -->
+
+<div class="info-overlay"
+id="infoOverlay"
+onclick="closePanel(event)">
+
+  <div class="info-panel">
+
+    <button class="btn-close"
+    onclick="closeOverlay()">
+      ✕
+    </button>
+
+    <div class="info-img-side">
+      <img id="panelImg">
+    </div>
+
+    <div class="info-text-side" style="flex:1;overflow:hidden;">
+
+      <h2 class="info-title" id="panelName"></h2>
+
+      <!-- TABS -->
+      <div class="modal-tabs">
+        <button class="modal-tab-btn active" onclick="switchTab('general', this)">📋 General</button>
+        <button class="modal-tab-btn" onclick="switchTab('cuidados', this)">🩺 Cuidados</button>
+      </div>
+
+      <!-- TAB GENERAL -->
+      <div class="tab-content active" id="tab-general">
+        <table class="info-table" id="panelTable"></table>
+        <div class="info-tags" id="panelTags"></div>
+      </div>
+
+      <!-- TAB CUIDADOS -->
+      <div class="tab-content" id="tab-cuidados">
+
+        <div class="care-section">
+          <div class="care-section-title"><span class="icon">🚫</span> Alérgenos comunes</div>
+          <div class="care-list" id="careAlergenos"></div>
+        </div>
+
+        <div class="care-section">
+          <div class="care-section-title"><span class="icon">☠️</span> Alimentos / sustancias tóxicas</div>
+          <div class="care-list" id="careToxicos"></div>
+        </div>
+
+        <div class="care-section">
+          <div class="care-section-title"><span class="icon">💜</span> Partes delicadas del cuerpo</div>
+          <div class="care-list" id="careDelicadas"></div>
+        </div>
+
+        <div class="care-section">
+          <div class="care-section-title"><span class="icon">⚠️</span> Propenso a</div>
+          <div class="care-list" id="carePropensiones"></div>
+        </div>
+
+        <div class="care-section">
+          <div class="care-section-title"><span class="icon">🥗</span> Alimentos recomendados</div>
+          <div class="care-list" id="careAlimentos"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+
+  © 2026 BioPet — Todos los derechos reservados
+
+</footer>
+
+
+
+<script>
+
+/* =========================
+   DATOS COMPLETOS
+========================= */
+
+const mascotasData = {
+
+ perros: [
+
+    {
+      nombre: 'Labrador Retriever',
+      img: './img/perros/perro3.png',
+      datos: {
+        'Nombre científico': 'Canis lupus familiaris',
+        'Temperatura': '18°C - 24°C',
+        'Esperanza de vida': '10 - 14 años',
+        'Tamaño': 'Grande',
+        'Personalidad': 'Juguetón y amigable'
+      },
+      tags: ['Carnívoro', 'Familiar', 'Activo'],
+      cuidados: {
+        alergenos: ['Polen', 'Ácaros del polvo', 'Pulgas', 'Ciertos champús'],
+        toxicos: ['Chocolate', 'Uvas y pasas', 'Xilitol', 'Cebolla y ajo', 'Macadamia', 'Alcohol', 'Cafeína'],
+        delicadas: ['Caderas (displasia)', 'Codos', 'Ojos', 'Orejas (infecciones)', 'Rodillas'],
+        propensiones: ['Obesidad', 'Displasia de cadera', 'Otitis', 'Artritis', 'Epilepsia'],
+        alimentos: ['Pollo cocido', 'Arroz blanco', 'Zanahoria', 'Manzana (sin semillas)', 'Brócoli', 'Calabaza', 'Salmón cocido']
+      }
+    },
+
+    {
+      nombre: 'Golden Retriever',
+      img: './img/perros/perro1.png',
+      datos: {
+        'Nombre científico': 'Canis lupus familiaris',
+        'Temperatura': '18°C - 24°C',
+        'Esperanza de vida': '10 - 12 años',
+        'Tamaño': 'Grande',
+        'Personalidad': 'Inteligente y amigable'
+      },
+      tags: ['Familiar', 'Activo', 'Leal'],
+      cuidados: {
+        alergenos: ['Polen', 'Pulgas', 'Ácaros', 'Detergentes perfumados'],
+        toxicos: ['Chocolate', 'Uvas', 'Cebolla', 'Ajo', 'Nueces de macadamia', 'Xilitol'],
+        delicadas: ['Caderas', 'Corazón', 'Piel (alergias)', 'Ojos', 'Articulaciones'],
+        propensiones: ['Cáncer', 'Displasia de cadera', 'Alergias cutáneas', 'Hipotiroidismo', 'Obesidad'],
+        alimentos: ['Pavo cocido', 'Batata', 'Arándanos', 'Espinaca', 'Manzana', 'Avena', 'Zanahoria']
+      }
+    },
+
+    {
+      nombre: 'Bulldog Francés',
+      img: './img/perros/perro4.png',
+      datos: {
+        'Nombre científico': 'Canis lupus familiaris',
+        'Temperatura': '18°C - 24°C',
+        'Esperanza de vida': '10 - 12 años',
+        'Tamaño': 'Pequeño',
+        'Personalidad': 'Tranquilo y cariñoso'
+      },
+      tags: ['Hogareño', 'Pequeño', 'Cariñoso'],
+      cuidados: {
+        alergenos: ['Gluten', 'Lácteos', 'Pulgas', 'Polvo', 'Ciertos alimentos proteicos'],
+        toxicos: ['Chocolate', 'Uvas', 'Cebolla', 'Ajo', 'Alcohol', 'Xilitol', 'Aguacate'],
+        delicadas: ['Vías respiratorias (braquicéfalo)', 'Piel de los pliegues faciales', 'Columna vertebral', 'Ojos'],
+        propensiones: ['Síndrome braquicéfalo', 'Problemas respiratorios', 'Dermatitis en pliegues', 'Problemas de columna', 'Golpe de calor'],
+        alimentos: ['Pollo cocido', 'Arroz', 'Zanahoria', 'Pepino', 'Manzana', 'Arándanos', 'Calabaza']
+      }
+    },
+
+    {
+      nombre: 'Chihuahua',
+      img: './img/perros/perro5.png',
+      datos: {
+        'Nombre científico': 'Canis lupus familiaris',
+        'Temperatura': '20°C - 26°C',
+        'Esperanza de vida': '12 - 20 años',
+        'Tamaño': 'Pequeño',
+        'Personalidad': 'Valiente y alerta'
+      },
+      tags: ['Pequeño', 'Energético', 'Guardián'],
+      cuidados: {
+        alergenos: ['Polvo', 'Pulgas', 'Ciertos alimentos (pollo o res en algunos casos)'],
+        toxicos: ['Chocolate', 'Xilitol', 'Uvas', 'Cebolla', 'Ajo', 'Café', 'Alcohol'],
+        delicadas: ['Fontanela (mollera)', 'Dientes (enfermedad dental)', 'Tráquea', 'Rodillas (luxación patelar)', 'Huesos frágiles'],
+        propensiones: ['Hipoglucemia', 'Luxación patelar', 'Hidrocefalia', 'Problemas dentales', 'Colapso traqueal'],
+        alimentos: ['Pollo cocido (en porciones pequeñas)', 'Arroz blanco', 'Zanahoria', 'Manzana', 'Calabaza', 'Arándanos']
+      }
+    },
+
+    {
+      nombre: 'Pastor Alemán',
+      img: './img/perros/perro7.png',
+      datos: {
+        'Nombre científico': 'Canis lupus familiaris',
+        'Temperatura': '15°C - 22°C',
+        'Esperanza de vida': '9 - 13 años',
+        'Tamaño': 'Grande',
+        'Personalidad': 'Protector y obediente'
+      },
+      tags: ['Inteligente', 'Guardián', 'Activo'],
+      cuidados: {
+        alergenos: ['Polen', 'Pulgas', 'Granos (trigo, maíz)', 'Lácteos'],
+        toxicos: ['Chocolate', 'Uvas', 'Cebolla', 'Ajo', 'Macadamia', 'Xilitol'],
+        delicadas: ['Caderas', 'Codos', 'Columna', 'Estómago (torsión gástrica)', 'Oídos'],
+        propensiones: ['Displasia de cadera', 'Degeneración espinal', 'Torsión gástrica', 'Alergias', 'Pannus ocular'],
+        alimentos: ['Carne magra cocida', 'Arroz integral', 'Zanahoria', 'Calabaza', 'Manzana', 'Espinaca', 'Salmón']
+      }
+    },
+
+    {
+      nombre: 'Pug',
+      img: './img/perros/perro6.png',
+      datos: {
+        'Nombre científico': 'Canis lupus familiaris',
+        'Temperatura': '18°C - 24°C',
+        'Esperanza de vida': '12 - 15 años',
+        'Tamaño': 'Pequeño',
+        'Personalidad': 'Sociable y divertido'
+      },
+      tags: ['Pequeño', 'Familiar', 'Tranquilo'],
+      cuidados: {
+        alergenos: ['Polvo', 'Pulgas', 'Ciertos champús', 'Polen'],
+        toxicos: ['Chocolate', 'Uvas', 'Cebolla', 'Ajo', 'Xilitol', 'Alcohol', 'Nueces'],
+        delicadas: ['Ojos (muy prominentes)', 'Pliegues de la cara', 'Vías respiratorias', 'Articulaciones', 'Columna'],
+        propensiones: ['Síndrome braquicéfalo', 'Úlceras corneales', 'Obesidad', 'Encefalitis', 'Dermatitis en pliegues'],
+        alimentos: ['Pollo cocido', 'Zanahoria baby', 'Manzana', 'Arándanos', 'Pepino', 'Arroz', 'Calabaza']
+      }
+    },
+
+    {
+      nombre: 'Husky Siberiano',
+      img: './img/perros/perrp10.png',
+      datos: {
+        'Nombre científico': 'Canis lupus familiaris',
+        'Temperatura': '10°C - 20°C',
+        'Esperanza de vida': '12 - 15 años',
+        'Tamaño': 'Grande',
+        'Personalidad': 'Energético y amigable'
+      },
+      tags: ['Activo', 'Peludo', 'Aventurero'],
+      cuidados: {
+        alergenos: ['Polen', 'Pulgas', 'Proteínas de granos', 'Ácaros'],
+        toxicos: ['Chocolate', 'Uvas', 'Cebolla', 'Ajo', 'Xilitol', 'Alcohol'],
+        delicadas: ['Ojos (cataratas hereditarias)', 'Caderas', 'Tiroides', 'Piel en climas cálidos'],
+        propensiones: ['Cataratas', 'Hipotiroidismo', 'Displasia de cadera', 'Golpe de calor', 'Problemas de piel en calor'],
+        alimentos: ['Salmón', 'Pollo cocido', 'Arroz integral', 'Zanahoria', 'Arándanos', 'Espinaca', 'Batata']
+      }
+    },
+
+    {
+      nombre: 'Beagle',
+      img: './img/perros/perro11.png',
+      datos: {
+        'Nombre científico': 'Canis lupus familiaris',
+        'Temperatura': '18°C - 24°C',
+        'Esperanza de vida': '12 - 15 años',
+        'Tamaño': 'Mediano',
+        'Personalidad': 'Curioso y alegre'
+      },
+      tags: ['Familiar', 'Activo', 'Inteligente'],
+      cuidados: {
+        alergenos: ['Polvo', 'Polen', 'Pulgas', 'Alimentos con aditivos artificiales'],
+        toxicos: ['Chocolate', 'Uvas', 'Xilitol', 'Cebolla', 'Ajo', 'Macadamia'],
+        delicadas: ['Orejas (infecciones frecuentes)', 'Rodillas', 'Columna', 'Ojos'],
+        propensiones: ['Obesidad', 'Epilepsia', 'Hipotiroidismo', 'Otitis', 'Displasia de cadera'],
+        alimentos: ['Pollo', 'Arroz', 'Manzana', 'Zanahoria', 'Frijoles verdes', 'Pepino', 'Arándanos']
+      }
+    },
+
+    {
+      nombre: 'Dálmata',
+      img: './img/perros/perro9.png',
+      datos: {
+        'Nombre científico': 'Canis lupus familiaris',
+        'Temperatura': '18°C - 24°C',
+        'Esperanza de vida': '10 - 13 años',
+        'Tamaño': 'Grande',
+        'Personalidad': 'Activo y protector'
+      },
+      tags: ['Energético', 'Elegante', 'Leal'],
+      cuidados: {
+        alergenos: ['Proteínas animales altas (res, cerdo)', 'Vísceras', 'Purina alta en purinas'],
+        toxicos: ['Chocolate', 'Uvas', 'Cebolla', 'Ajo', 'Xilitol', 'Alimentos ricos en purinas'],
+        delicadas: ['Riñones y vejiga (cálculos de urato)', 'Oídos (sordera)', 'Piel (alergias)'],
+        propensiones: ['Urolitiasis (cálculos urinarios)', 'Sordera', 'Alergia cutánea', 'Epilepsia', 'Artritis'],
+        alimentos: ['Pollo', 'Arroz blanco', 'Vegetales variados', 'Manzana', 'Pera', 'Pepino', 'Calabaza']
+      }
+    },
+
+    {
+      nombre: 'Shih Tzu',
+      img: './img/perros/perro8.png',
+      datos: {
+        'Nombre científico': 'Canis lupus familiaris',
+        'Temperatura': '20°C - 25°C',
+        'Esperanza de vida': '10 - 16 años',
+        'Tamaño': 'Pequeño',
+        'Personalidad': 'Dulce y tranquilo'
+      },
+      tags: ['Peludo', 'Hogareño', 'Cariñoso'],
+      cuidados: {
+        alergenos: ['Polvo', 'Ácaros', 'Ciertos alimentos (trigo, soja)', 'Productos de limpieza'],
+        toxicos: ['Chocolate', 'Uvas', 'Cebolla', 'Ajo', 'Xilitol', 'Aguacate'],
+        delicadas: ['Ojos (lagrimeo excesivo)', 'Vías respiratorias', 'Dientes', 'Piel bajo el pelaje', 'Espina dorsal'],
+        propensiones: ['Problemas oculares', 'Infecciones dentales', 'Síndrome braquicéfalo leve', 'Hernias de disco', 'Dermatitis'],
+        alimentos: ['Pollo cocido', 'Arroz', 'Manzana', 'Zanahoria', 'Calabaza', 'Arándanos', 'Batata']
+      }
+    }
+
+  ],
+
+
+  gatos: [
+
+  {
+    nombre: 'Siamés',
+    img: './img/gatos/siames.png',
+    datos: {
+      'Nombre científico': 'Felis catus',
+      'Temperatura': '20°C - 26°C',
+      'Esperanza de vida': '12 - 20 años',
+      'Tamaño': 'Mediano',
+      'Personalidad': 'Sociable y curioso'
+    },
+    tags: ['Elegante', 'Inteligente', 'Activo'],
+    cuidados: {
+      alergenos: ['Polvo', 'Ácaros', 'Perfumes fuertes', 'Ciertos alimentos de grano'],
+      toxicos: ['Lirios (altamente tóxicos)', 'Cebolla', 'Ajo', 'Chocolate', 'Uvas', 'Xilitol', 'Paracetamol'],
+      delicadas: ['Ojos (estrabismo)', 'Dientes', 'Corazón', 'Pulmones'],
+      propensiones: ['Amiloidosis', 'Enfermedad cardíaca', 'Estrabismo hereditario', 'Problemas respiratorios'],
+      alimentos: ['Pollo cocido', 'Pavo', 'Salmón cocido', 'Atún (ocasional)', 'Calabaza cocida', 'Zanahoria cocida']
+    }
+  },
+
+  {
+    nombre: 'Persa',
+    img: './img/gatos/persa.png',
+    datos: {
+      'Nombre científico': 'Felis catus',
+      'Temperatura': '18°C - 24°C',
+      'Esperanza de vida': '12 - 17 años',
+      'Tamaño': 'Mediano',
+      'Personalidad': 'Calmado y dulce'
+    },
+    tags: ['Peludo', 'Tranquilo', 'Hogareño'],
+    cuidados: {
+      alergenos: ['Polvo', 'Perfumes', 'Cambios bruscos de temperatura', 'Ciertos piensos con grano'],
+      toxicos: ['Lirios', 'Chocolate', 'Uvas', 'Cebolla', 'Ajo', 'Alcohol', 'Xilitol'],
+      delicadas: ['Ojos (lagrimeo)', 'Vías respiratorias (braquicéfalo)', 'Riñones', 'Pelo (enredos y bolas de pelo)'],
+      propensiones: ['Enfermedad renal poliquística', 'Síndrome braquicéfalo', 'Bolas de pelo', 'Infecciones oculares', 'Problemas dentales'],
+      alimentos: ['Pollo sin hueso', 'Pavo cocido', 'Salmón', 'Calabaza (ayuda con bolas de pelo)', 'Atún en agua (ocasional)']
+    }
+  },
+
+  {
+    nombre: 'Maine Coon',
+    img: './img/gatos/maine.png',
+    datos: {
+      'Nombre científico': 'Felis catus',
+      'Temperatura': '18°C - 24°C',
+      'Esperanza de vida': '10 - 15 años',
+      'Tamaño': 'Grande',
+      'Personalidad': 'Amigable y juguetón'
+    },
+    tags: ['Grande', 'Peludo', 'Familiar'],
+    cuidados: {
+      alergenos: ['Polvo', 'Polen', 'Ácaros', 'Ciertos ingredientes en croquetas'],
+      toxicos: ['Lirios', 'Cebolla', 'Ajo', 'Chocolate', 'Uvas', 'Xilitol', 'Plantas de interior (muchas)'],
+      delicadas: ['Corazón (miocardiopatía)', 'Caderas', 'Articulaciones', 'Médula espinal'],
+      propensiones: ['Miocardiopatía hipertrófica', 'Displasia de cadera', 'Atrofia muscular espinal', 'Obesidad'],
+      alimentos: ['Pollo', 'Pavo', 'Res magra cocida', 'Salmón', 'Atún (ocasional)', 'Calabaza', 'Arándanos']
+    }
+  },
+
+  {
+    nombre: 'Bengalí',
+    img: './img/gatos/bengali.png',
+    datos: {
+      'Nombre científico': 'Felis catus',
+      'Temperatura': '20°C - 26°C',
+      'Esperanza de vida': '12 - 16 años',
+      'Tamaño': 'Mediano',
+      'Personalidad': 'Energético y curioso'
+    },
+    tags: ['Exótico', 'Activo', 'Inteligente'],
+    cuidados: {
+      alergenos: ['Anestésicos (sensibilidad)', 'Ciertos antiparasitarios (piretrinas)', 'Piensos con mucho grano'],
+      toxicos: ['Lirios', 'Cebolla', 'Ajo', 'Chocolate', 'Uvas', 'Xilitol', 'Alcohol'],
+      delicadas: ['Corazón', 'Ojos (ceguera progresiva)', 'Sistema nervioso'],
+      propensiones: ['Miocardiopatía', 'Atrofia de retina progresiva', 'Enteropatía inflamatoria', 'Alergia a piretrinas'],
+      alimentos: ['Proteína animal alta (pollo, pavo, pato)', 'Salmón', 'Res cocida', 'Huevo cocido', 'Calabaza']
+    }
+  },
+
+  {
+    nombre: 'Azul Ruso',
+    img: './img/gatos/azul.png',
+    datos: {
+      'Nombre científico': 'Felis catus',
+      'Temperatura': '18°C - 24°C',
+      'Esperanza de vida': '15 - 20 años',
+      'Tamaño': 'Mediano',
+      'Personalidad': 'Reservado y leal'
+    },
+    tags: ['Elegante', 'Tranquilo', 'Cariñoso'],
+    cuidados: {
+      alergenos: ['Muy pocos — producen menos Fel d1 (alérgeno felino)', 'Polvo en exceso'],
+      toxicos: ['Lirios', 'Cebolla', 'Ajo', 'Chocolate', 'Uvas', 'Xilitol'],
+      delicadas: ['Riñones', 'Dientes', 'Articulaciones (con la edad)'],
+      propensiones: ['Enfermedad renal crónica', 'Obesidad', 'Problemas dentales'],
+      alimentos: ['Pollo', 'Pavo', 'Salmón', 'Atún (ocasional)', 'Zanahoria cocida', 'Calabaza']
+    }
+  },
+
+  {
+    nombre: 'Ragdoll',
+    img: './img/gatos/ragdoll.png',
+    datos: {
+      'Nombre científico': 'Felis catus',
+      'Temperatura': '20°C - 25°C',
+      'Esperanza de vida': '12 - 17 años',
+      'Tamaño': 'Grande',
+      'Personalidad': 'Relajado y dócil'
+    },
+    tags: ['Familiar', 'Grande', 'Peludo'],
+    cuidados: {
+      alergenos: ['Polvo', 'Ácaros', 'Perfumes', 'Ciertos alimentos con grano'],
+      toxicos: ['Lirios', 'Chocolate', 'Uvas', 'Cebolla', 'Ajo', 'Xilitol', 'Plantas tóxicas de interior'],
+      delicadas: ['Corazón', 'Riñones', 'Vejiga', 'Sistema musculoesquelético'],
+      propensiones: ['Miocardiopatía hipertrófica', 'Enfermedad renal poliquística', 'Cálculos en vejiga', 'Obesidad'],
+      alimentos: ['Pollo cocido', 'Pavo', 'Salmón', 'Res magra', 'Calabaza', 'Atún en agua (ocasional)']
+    }
+  },
+
+  {
+    nombre: 'Sphynx',
+    img: './img/gatos/sphinx.png',
+    datos: {
+      'Nombre científico': 'Felis catus',
+      'Temperatura': '22°C - 28°C',
+      'Esperanza de vida': '8 - 14 años',
+      'Tamaño': 'Mediano',
+      'Personalidad': 'Sociable y activo'
+    },
+    tags: ['Sin pelo', 'Exótico', 'Cariñoso'],
+    cuidados: {
+      alergenos: ['Frío extremo', 'Radiación solar directa', 'Jabones con fragancia', 'Ciertos tejidos (ropa que usan)'],
+      toxicos: ['Lirios', 'Cebolla', 'Ajo', 'Chocolate', 'Uvas', 'Xilitol', 'Alcohol'],
+      delicadas: ['Piel (sin pelo, muy expuesta)', 'Corazón', 'Oídos (acumulan cera)', 'Uñas'],
+      propensiones: ['Miocardiopatía hipertrófica', 'Quemaduras solares', 'Hipotermia', 'Infección en oídos', 'Problemas digestivos'],
+      alimentos: ['Pollo', 'Pavo', 'Res magra', 'Salmón', 'Huevo cocido', 'Atún (ocasional)', 'Calabaza']
+    }
+  },
+
+  {
+    nombre: 'Británico de Pelo Corto',
+    img: './img/gatos/britanico.png',
+    datos: {
+      'Nombre científico': 'Felis catus',
+      'Temperatura': '18°C - 24°C',
+      'Esperanza de vida': '12 - 20 años',
+      'Tamaño': 'Mediano',
+      'Personalidad': 'Independiente y tranquilo'
+    },
+    tags: ['Peludo', 'Hogareño', 'Calmado'],
+    cuidados: {
+      alergenos: ['Polvo', 'Ácaros', 'Ciertos alimentos (soja, maíz)', 'Perfumes'],
+      toxicos: ['Lirios', 'Cebolla', 'Ajo', 'Chocolate', 'Uvas', 'Xilitol', 'Alcohol'],
+      delicadas: ['Corazón', 'Riñones', 'Articulaciones', 'Dientes'],
+      propensiones: ['Miocardiopatía', 'Enfermedad renal', 'Obesidad', 'Problemas dentales'],
+      alimentos: ['Pollo', 'Pavo', 'Salmón', 'Res cocida', 'Atún (ocasional)', 'Calabaza', 'Zanahoria cocida']
+    }
+  },
+
+  {
+    nombre: 'Scottish Fold',
+    img: './img/gatos/fold.png',
+    datos: {
+      'Nombre científico': 'Felis catus',
+      'Temperatura': '18°C - 24°C',
+      'Esperanza de vida': '11 - 15 años',
+      'Tamaño': 'Mediano',
+      'Personalidad': 'Dulce y tranquilo'
+    },
+    tags: ['Orejas dobladas', 'Cariñoso', 'Hogareño'],
+    cuidados: {
+      alergenos: ['Polvo', 'Ácaros', 'Perfumes', 'Ciertos champús'],
+      toxicos: ['Lirios', 'Cebolla', 'Ajo', 'Chocolate', 'Uvas', 'Xilitol'],
+      delicadas: ['Articulaciones y cartílagos (osteocondrodisplasia)', 'Cola', 'Orejas', 'Corazón'],
+      propensiones: ['Osteocondrodisplasia (deformidad ósea)', 'Artritis severa', 'Miocardiopatía', 'Infección en orejas'],
+      alimentos: ['Pollo cocido', 'Salmón', 'Pavo', 'Atún en agua', 'Calabaza', 'Arroz cocido (pequeña cantidad)']
+    }
+  },
+
+  {
+    nombre: 'Angora Turco',
+    img: './img/gatos/angora.png',
+    datos: {
+      'Nombre científico': 'Felis catus',
+      'Temperatura': '18°C - 24°C',
+      'Esperanza de vida': '12 - 18 años',
+      'Tamaño': 'Mediano',
+      'Personalidad': 'Inteligente y juguetón'
+    },
+    tags: ['Elegante', 'Activo', 'Peludo'],
+    cuidados: {
+      alergenos: ['Polvo', 'Polen', 'Ciertos alimentos (trigo)', 'Ácaros'],
+      toxicos: ['Lirios', 'Cebolla', 'Ajo', 'Chocolate', 'Uvas', 'Xilitol'],
+      delicadas: ['Oídos (sordera, especialmente blanco con ojos azules)', 'Corazón', 'Pelaje (enredos)'],
+      propensiones: ['Sordera hereditaria', 'Miocardiopatía', 'Ataxia', 'Bolas de pelo'],
+      alimentos: ['Pollo', 'Pavo', 'Salmón', 'Atún (ocasional)', 'Calabaza cocida', 'Huevo cocido']
+    }
+  }
+
+],
+  aves: [
+
+  {
+    nombre: 'Canario',
+    img: './img/aves/canario.png',
+    datos: {
+      'Nombre científico': 'Serinus canaria domestica',
+      'Temperatura': '20°C - 25°C',
+      'Esperanza de vida': '8 - 15 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Alegre y activo'
+    },
+    tags: ['Cantor', 'Tropical', 'Colorido'],
+    cuidados: {
+      alergenos: ['Polvo de plumas', 'Esporas de hongos en el ambiente', 'Aerosoles', 'Humo de cigarrillo'],
+      toxicos: ['Aguacate', 'Cebolla', 'Ajo', 'Chocolate', 'Cafeína', 'Alcohol', 'Sal', 'Semillas de manzana'],
+      delicadas: ['Sistema respiratorio (muy sensible a gases)', 'Patas', 'Pico', 'Ojos'],
+      propensiones: ['Infecciones respiratorias', 'Ácaros (Dermanyssus)', 'Obesidad', 'Deficiencia de vitaminas'],
+      alimentos: ['Semillas variadas', 'Manzana', 'Pera', 'Zanahoria rallada', 'Brócoli', 'Espinaca', 'Pepino', 'Melón']
+    }
+  },
+
+  {
+    nombre: 'Periquito Australiano',
+    img: './img/aves/periquito.png',
+    datos: {
+      'Nombre científico': 'Melopsittacus undulatus',
+      'Temperatura': '18°C - 26°C',
+      'Esperanza de vida': '5 - 10 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Sociable y juguetón'
+    },
+    tags: ['Inteligente', 'Colorido', 'Tropical'],
+    cuidados: {
+      alergenos: ['Aerosoles', 'Humo', 'Polvo de plumas', 'Ambientadores'],
+      toxicos: ['Aguacate', 'Cebolla', 'Ajo', 'Chocolate', 'Cafeína', 'Sal excesiva', 'Semillas de frutas', 'Alcohol'],
+      delicadas: ['Siringe (órgano vocal)', 'Sistema respiratorio', 'Buche', 'Glándula uropigial', 'Patas'],
+      propensiones: ['Psitacosis', 'Megabacteria', 'Tumores (en hembras)', 'Problemas del buche', 'Ácaros'],
+      alimentos: ['Semillas (alpiste, mijo)', 'Manzana', 'Pera', 'Zanahoria', 'Brócoli', 'Pepino', 'Lechuga romana', 'Maíz tierno']
+    }
+  },
+
+  {
+    nombre: 'Cacatúa Ninfa',
+    img: './img/aves/cacatua.png',
+    datos: {
+      'Nombre científico': 'Nymphicus hollandicus',
+      'Temperatura': '20°C - 28°C',
+      'Esperanza de vida': '10 - 15 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Cariñosa y curiosa'
+    },
+    tags: ['Tropical', 'Sociable', 'Activa'],
+    cuidados: {
+      alergenos: ['Polvo de plumas (alta producción)', 'Aerosoles', 'Humo', 'Cocinas con teflón (PTFE letal)'],
+      toxicos: ['Aguacate', 'Cebolla', 'Ajo', 'Chocolate', 'Alcohol', 'Cafeína', 'Sal', 'Semillas de fruta'],
+      delicadas: ['Sistema respiratorio', 'Cresta', 'Pico', 'Huesos (frágiles)'],
+      propensiones: ['Síndrome de plumas y pico', 'Depresión (necesitan compañía)', 'Infecciones fúngicas', 'Obesidad'],
+      alimentos: ['Pellets', 'Semillas variadas', 'Manzana', 'Mango', 'Zanahoria', 'Brócoli', 'Maíz', 'Arroz cocido', 'Espinaca']
+    }
+  },
+
+  {
+    nombre: 'Guacamayo Azul',
+    img: './img/aves/guacamayo.png',
+    datos: {
+      'Nombre científico': 'Ara ararauna',
+      'Temperatura': '24°C - 30°C',
+      'Esperanza de vida': '30 - 50 años',
+      'Tamaño': 'Grande',
+      'Personalidad': 'Inteligente y sociable'
+    },
+    tags: ['Exótica', 'Tropical', 'Colorida'],
+    cuidados: {
+      alergenos: ['Humo de cocina', 'Teflón (PTFE)', 'Aerosoles', 'Ambientadores', 'Polvo en exceso'],
+      toxicos: ['Aguacate', 'Cebolla', 'Ajo', 'Chocolate', 'Cafeína', 'Alcohol', 'Sal', 'Semillas de manzana y pera'],
+      delicadas: ['Pico (muy poderoso pero frágil si se rompe)', 'Sistema respiratorio', 'Lengua', 'Articulaciones de alas'],
+      propensiones: ['Psitacosis', 'Proventricular dilatación', 'Artritis', 'Problemas de plumaje (arranque)', 'Infecciones fúngicas'],
+      alimentos: ['Pellets de loro', 'Frutas tropicales (mango, papaya, maracuyá)', 'Manzana', 'Pera', 'Zanahoria', 'Brócoli', 'Nueces (sin sal)', 'Maíz', 'Arroz cocido']
+    }
+  },
+
+  {
+    nombre: 'Loro Gris Africano',
+    img: './img/aves/loro.png',
+    datos: {
+      'Nombre científico': 'Psittacus erithacus',
+      'Temperatura': '22°C - 28°C',
+      'Esperanza de vida': '40 - 60 años',
+      'Tamaño': 'Mediano',
+      'Personalidad': 'Muy inteligente'
+    },
+    tags: ['Exótico', 'Hablador', 'Sociable'],
+    cuidados: {
+      alergenos: ['Aerosoles', 'Humo', 'Teflón', 'Cambios bruscos de temperatura'],
+      toxicos: ['Aguacate', 'Cebolla', 'Ajo', 'Chocolate', 'Cafeína', 'Alcohol', 'Semillas de frutas', 'Sal'],
+      delicadas: ['Sistema nervioso (hipersensible al estrés)', 'Hígado', 'Sistema respiratorio', 'Pico', 'Plumas de vuelo'],
+      propensiones: ['Deficiencia de calcio', 'Psitacosis', 'Infecciones fúngicas', 'Arranque de plumas (estrés)', 'Problemas hepáticos'],
+      alimentos: ['Pellets formulados', 'Granada', 'Mango', 'Papaya', 'Zanahoria', 'Brócoli', 'Pimiento', 'Arroz cocido', 'Legumbres cocidas', 'Nueces (con moderación)']
+    }
+  },
+
+  {
+    nombre: 'Agapornis',
+    img: './img/aves/agapornis.png',
+    datos: {
+      'Nombre científico': 'Agapornis roseicollis',
+      'Temperatura': '20°C - 28°C',
+      'Esperanza de vida': '10 - 15 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Cariñoso y activo'
+    },
+    tags: ['Tropical', 'Colorido', 'Sociable'],
+    cuidados: {
+      alergenos: ['Polvo de plumas', 'Aerosoles', 'Humo de cigarro', 'Ambientadores'],
+      toxicos: ['Aguacate', 'Cebolla', 'Ajo', 'Chocolate', 'Cafeína', 'Sal', 'Semillas de manzana'],
+      delicadas: ['Sistema respiratorio', 'Ojos', 'Buche', 'Patas'],
+      propensiones: ['Hongos (aspergillosis)', 'Infecciones bacterianas', 'Síndrome de plumas', 'Estrés sin pareja'],
+      alimentos: ['Semillas de alpiste y mijo', 'Manzana', 'Pera', 'Zanahoria', 'Brócoli', 'Maíz tierno', 'Lechuga', 'Espinaca']
+    }
+  },
+
+  {
+    nombre: 'Diamante Mandarín',
+    img: './img/aves/diamante.png',
+    datos: {
+      'Nombre científico': 'Taeniopygia guttata',
+      'Temperatura': '20°C - 26°C',
+      'Esperanza de vida': '5 - 10 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Tranquilo y alegre'
+    },
+    tags: ['Tropical', 'Cantor', 'Pequeño'],
+    cuidados: {
+      alergenos: ['Aerosoles', 'Humo', 'Polvo excesivo', 'Temperaturas bajas'],
+      toxicos: ['Aguacate', 'Cebolla', 'Ajo', 'Chocolate', 'Sal', 'Semillas de frutas', 'Cafeína'],
+      delicadas: ['Sistema respiratorio', 'Patas (frágiles)', 'Ojos', 'Plumaje'],
+      propensiones: ['Ácaros', 'Infecciones respiratorias', 'Deficiencias vitamínicas', 'Obesidad con semillas solo'],
+      alimentos: ['Alpiste', 'Mijo', 'Manzana rallada', 'Zanahoria rallada', 'Espinaca tierna', 'Pepino', 'Huevo duro rallado (ocasional)']
+    }
+  },
+
+  {
+    nombre: 'Cotorra del Sol',
+    img: './img/aves/cotorra.png',
+    datos: {
+      'Nombre científico': 'Aratinga solstitialis',
+      'Temperatura': '24°C - 30°C',
+      'Esperanza de vida': '20 - 30 años',
+      'Tamaño': 'Mediano',
+      'Personalidad': 'Juguetona y ruidosa'
+    },
+    tags: ['Tropical', 'Exótica', 'Colorida'],
+    cuidados: {
+      alergenos: ['Teflón (PTFE)', 'Humo', 'Aerosoles', 'Cambios de temperatura'],
+      toxicos: ['Aguacate', 'Cebolla', 'Ajo', 'Chocolate', 'Alcohol', 'Cafeína', 'Semillas de fruta', 'Sal'],
+      delicadas: ['Sistema respiratorio', 'Pico', 'Articulaciones', 'Plumas de vuelo'],
+      propensiones: ['Psitacosis', 'Proventricular dilatación', 'Dermatitis', 'Problemas de plumaje por estrés'],
+      alimentos: ['Pellets', 'Mango', 'Papaya', 'Manzana', 'Pimiento rojo', 'Maíz', 'Brócoli', 'Zanahoria', 'Arroz cocido']
+    }
+  },
+
+  {
+    nombre: 'Tucán Toco',
+    img: './img/aves/tucan.png',
+    datos: {
+      'Nombre científico': 'Ramphastos toco',
+      'Temperatura': '24°C - 30°C',
+      'Esperanza de vida': '15 - 20 años',
+      'Tamaño': 'Grande',
+      'Personalidad': 'Curioso y activo'
+    },
+    tags: ['Exótico', 'Tropical', 'Grande'],
+    cuidados: {
+      alergenos: ['Polvos de ambiente', 'Aerosoles', 'Dietas altas en hierro (peligroso para tucanes)'],
+      toxicos: ['Aguacate', 'Cebolla', 'Ajo', 'Chocolate', 'Sal', 'Alimentos ricos en hierro (sardinas, espinaca en exceso)', 'Semillas de frutas'],
+      delicadas: ['Pico (hueco y frágil)', 'Hígado (almacenamiento de hierro)', 'Ojos', 'Patas (tres dedos adelante, uno atrás)'],
+      propensiones: ['Hemocromatosis (sobrecarga de hierro)', 'Problemas en el pico', 'Infecciones fúngicas', 'Lesiones de patas'],
+      alimentos: ['Papaya', 'Mango', 'Plátano', 'Piña', 'Pera', 'Manzana', 'Uvas (sin semillas)', 'Arándanos', 'Proteína animal muy baja (grillo ocasional)']
+    }
+  },
+
+  {
+    nombre: 'Pinzón Gouldiano',
+    img: './img/aves/pinzon.png',
+    datos: {
+      'Nombre científico': 'Erythrura gouldiae',
+      'Temperatura': '22°C - 28°C',
+      'Esperanza de vida': '5 - 8 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Calmado y vistoso'
+    },
+    tags: ['Tropical', 'Colorido', 'Pequeño'],
+    cuidados: {
+      alergenos: ['Frío (muy sensibles)', 'Aerosoles', 'Polvo', 'Humedad excesiva'],
+      toxicos: ['Aguacate', 'Cebolla', 'Ajo', 'Sal', 'Chocolate', 'Semillas de manzana', 'Cafeína'],
+      delicadas: ['Sistema respiratorio (muy delicado)', 'Plumas', 'Patas', 'Temperatura corporal (hipotermia fácil)'],
+      propensiones: ['Ácaros del air sac', 'Infecciones bacterianas', 'Deficiencias vitamínicas', 'Estrés severo (causa muerte)'],
+      alimentos: ['Mijo blanco', 'Alpiste', 'Semillas de hierba', 'Manzana rallada', 'Pepino', 'Zanahoria', 'Lechuga', 'Huevo duro rallado']
+    }
+  }
+
+],
+  roedores: [
+
+  {
+    nombre: 'Hámster Sirio',
+    img: './img/roedores/hamster.png',
+    datos: {
+      'Nombre científico': 'Mesocricetus auratus',
+      'Temperatura': '20°C - 24°C',
+      'Esperanza de vida': '2 - 4 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Curioso y nocturno'
+    },
+    tags: ['Pequeño', 'Activo', 'Omnívoro'],
+    cuidados: {
+      alergenos: ['Viruta de cedro y pino (tóxica)', 'Polvo', 'Perfumes del ambiente'],
+      toxicos: ['Almendras amargas', 'Ajo', 'Cebolla', 'Chocolate', 'Café', 'Citrus (limón, naranja)', 'Papas crudas', 'Tomates verdes'],
+      delicadas: ['Mejillas (bolsas), nunca introducir alimentos pegajosos', 'Patas traseras', 'Espalda', 'Ojos'],
+      propensiones: ['Diabetes (en hámster sirio)', 'Tumores', 'Wet tail (diarrea grave)', 'Hibernación falsa (hipotermia)', 'Problemas dentales'],
+      alimentos: ['Semillas de girasol (pocas)', 'Zanahoria', 'Pepino', 'Manzana (sin semillas)', 'Brócoli', 'Pollo cocido (trocito)', 'Huevo duro', 'Copos de avena']
+    }
+  },
+
+  {
+    nombre: 'Cobaya',
+    img: './img/roedores/cobaya.png',
+    datos: {
+      'Nombre científico': 'Cavia porcellus',
+      'Temperatura': '18°C - 24°C',
+      'Esperanza de vida': '5 - 8 años',
+      'Tamaño': 'Mediano',
+      'Personalidad': 'Sociable y tranquila'
+    },
+    tags: ['Herbívoro', 'Familiar', 'Tranquilo'],
+    cuidados: {
+      alergenos: ['Viruta de cedro', 'Polvo', 'Cambios de temperatura'],
+      toxicos: ['Ajo', 'Cebolla', 'Papas crudas', 'Ruibarbo', 'Aguacate', 'Chocolate', 'Perejil en exceso', 'Lechuga iceberg (en exceso)'],
+      delicadas: ['Dientes (crecimiento continuo)', 'Columna (caídas)', 'Patas (fracturas)', 'Piel alrededor de la boca'],
+      propensiones: ['Escorbuto (no producen vitamina C)', 'Maloclusión dental', 'Abscesos', 'Neumonía', 'Ovarios quísticos (hembras)'],
+      alimentos: ['Pimiento (rico en vitamina C)', 'Perejil fresco', 'Zanahoria', 'Pepino', 'Lechuga romana', 'Manzana', 'Brócoli', 'Heno de timothy (base de dieta)']
+    }
+  },
+
+  {
+    nombre: 'Chinchilla',
+    img: './img/roedores/chinchilla.png',
+    datos: {
+      'Nombre científico': 'Chinchilla lanigera',
+      'Temperatura': '15°C - 22°C',
+      'Esperanza de vida': '10 - 20 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Tímida y activa'
+    },
+    tags: ['Peluda', 'Nocturna', 'Suave'],
+    cuidados: {
+      alergenos: ['Humedad (causa problemas de piel)', 'Calor (muy sensibles)', 'Polvo excesivo'],
+      toxicos: ['Frutas en exceso (azúcar)', 'Semillas grasas en exceso', 'Ajo', 'Cebolla', 'Chocolate', 'Nueces en exceso', 'Brócoli en exceso'],
+      delicadas: ['Columna vertebral', 'Dientes (maloclusión)', 'Sistema digestivo (muy sensible)', 'Pelaje (nunca bañar con agua)'],
+      propensiones: ['Golpe de calor', 'Maloclusión dental', 'Diarrea (dieta incorrecta)', 'Hongos en piel', 'Fracturas'],
+      alimentos: ['Heno de buena calidad (80%)', 'Pellets de chinchilla', 'Rosa mosqueta (seca)', 'Manzana deshidratada (ocasional)', 'Hierbas secas', 'Zanahoria (poca)']
+    }
+  },
+
+  {
+    nombre: 'Ratón Doméstico',
+    img: './img/roedores/raton.png',
+    datos: {
+      'Nombre científico': 'Mus musculus',
+      'Temperatura': '20°C - 24°C',
+      'Esperanza de vida': '1 - 3 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Curioso y activo'
+    },
+    tags: ['Pequeño', 'Inteligente', 'Social'],
+    cuidados: {
+      alergenos: ['Viruta de cedro/pino', 'Polvo', 'Alimentos procesados con conservantes'],
+      toxicos: ['Chocolate', 'Ajo', 'Cebolla', 'Alcohol', 'Cafeína', 'Papas crudas', 'Ruibarbo'],
+      delicadas: ['Cola (nunca agarrar de la cola)', 'Patas traseras', 'Ojos (infecciones)', 'Sistema respiratorio'],
+      propensiones: ['Tumores', 'Infecciones respiratorias', 'Dermatitis', 'Parasitosis'],
+      alimentos: ['Semillas varias', 'Verduras frescas (zanahoria, pepino)', 'Manzana', 'Pera', 'Pollo cocido (trocito)', 'Huevo duro', 'Granos cocidos']
+    }
+  },
+
+  {
+    nombre: 'Jerbo',
+    img: './img/roedores/jerbo.png',
+    datos: {
+      'Nombre científico': 'Meriones unguiculatus',
+      'Temperatura': '20°C - 26°C',
+      'Esperanza de vida': '3 - 5 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Energético y curioso'
+    },
+    tags: ['Activo', 'Pequeño', 'Sociable'],
+    cuidados: {
+      alergenos: ['Viruta de cedro', 'Polvo', 'Cambios bruscos de temperatura'],
+      toxicos: ['Ajo', 'Cebolla', 'Chocolate', 'Citros', 'Papas crudas', 'Hojas de ruibarbo', 'Uvas'],
+      delicadas: ['Cola (se rompe fácilmente)', 'Dientes', 'Patas traseras', 'Ojos'],
+      propensiones: ['Epilepsia', 'Tumores', 'Enfermedades respiratorias', 'Afección de cola', 'Rascado excesivo'],
+      alimentos: ['Semillas de girasol (poca cantidad)', 'Mijo', 'Zanahoria', 'Brócoli', 'Manzana', 'Pepino', 'Copos de avena']
+    }
+  },
+
+  {
+    nombre: 'Ardilla Coreana',
+    img: './img/roedores/ardilla.png',
+    datos: {
+      'Nombre científico': 'Tamias sibiricus',
+      'Temperatura': '18°C - 24°C',
+      'Esperanza de vida': '6 - 10 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Inquieta y curiosa'
+    },
+    tags: ['Exótica', 'Activa', 'Inteligente'],
+    cuidados: {
+      alergenos: ['Polvo', 'Viruta de cedro', 'Perfumes del hogar'],
+      toxicos: ['Almendras amargas', 'Ajo', 'Cebolla', 'Chocolate', 'Nueces en exceso', 'Uvas', 'Pasas'],
+      delicadas: ['Bolsas de las mejillas (no introducir pegajoso)', 'Dientes', 'Columna (caídas)', 'Cola'],
+      propensiones: ['Problemas dentales', 'Hibernación (necesita condiciones adecuadas)', 'Parasitosis', 'Fracturas'],
+      alimentos: ['Bellotas', 'Nueces (poca cantidad)', 'Semillas', 'Manzana', 'Pera', 'Zanahoria', 'Bayas', 'Insectos secos (proteína)']
+    }
+  },
+
+  {
+    nombre: 'Degú',
+    img: './img/roedores/degu.png',
+    datos: {
+      'Nombre científico': 'Octodon degus',
+      'Temperatura': '18°C - 24°C',
+      'Esperanza de vida': '5 - 8 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Sociable y curioso'
+    },
+    tags: ['Social', 'Inteligente', 'Activo'],
+    cuidados: {
+      alergenos: ['Humedad', 'Viruta de cedro', 'Polvo'],
+      toxicos: ['Azúcar (extremadamente sensibles, diabéticos)', 'Frutas dulces', 'Ajo', 'Cebolla', 'Chocolate', 'Semillas grasas en exceso'],
+      delicadas: ['Cola (se desprende como mecanismo de defensa)', 'Dientes', 'Páncreas (diabetes)', 'Columna'],
+      propensiones: ['Diabetes (muy frecuente)', 'Maloclusión dental', 'Cataratas', 'Obesidad'],
+      alimentos: ['Heno de timothy (base)', 'Pellets sin azúcar', 'Zanahoria (poca)', 'Pepino', 'Brócoli', 'Hierbas secas', 'Hojas de diente de león']
+    }
+  },
+
+  {
+    nombre: 'Rata Dumbo',
+    img: './img/roedores/rata.png',
+    datos: {
+      'Nombre científico': 'Rattus norvegicus',
+      'Temperatura': '20°C - 24°C',
+      'Esperanza de vida': '2 - 3 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Inteligente y cariñosa'
+    },
+    tags: ['Social', 'Doméstico', 'Activo'],
+    cuidados: {
+      alergenos: ['Viruta de cedro y pino', 'Polvo', 'Pinturas fuertes', 'Ambientadores'],
+      toxicos: ['Cítricos (en machos, por d-limoneno)', 'Ajo', 'Cebolla', 'Chocolate', 'Alcohol', 'Cafeína', 'Azúcar azul'],
+      delicadas: ['Sistema respiratorio (muy susceptible)', 'Orejas (dumbo)', 'Columna y articulaciones (con la edad)', 'Dientes'],
+      propensiones: ['Tumores mamarios (hembras)', 'Infecciones respiratorias', 'Megacolon', 'Abscesos', 'Artritis'],
+      alimentos: ['Pollo cocido', 'Arroz integral', 'Verduras variadas', 'Manzana', 'Pera', 'Uva (sin semillas)', 'Huevo duro', 'Pasta cocida (poca)']
+    }
+  },
+
+  {
+    nombre: 'Conejo Enano',
+    img: './img/roedores/conejo.png',
+    datos: {
+      'Nombre científico': 'Oryctolagus cuniculus',
+      'Temperatura': '18°C - 24°C',
+      'Esperanza de vida': '7 - 12 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Dulce y tranquilo'
+    },
+    tags: ['Herbívoro', 'Peludo', 'Familiar'],
+    cuidados: {
+      alergenos: ['Polvo', 'Ácaros', 'Perfumes intensos', 'Viruta de cedro'],
+      toxicos: ['Aguacate', 'Cebolla', 'Ajo', 'Chocolate', 'Papas', 'Ruibarbo', 'Semillas de fruta', 'Lechuga iceberg en exceso'],
+      delicadas: ['Columna (caídas peligrosas)', 'Dientes (crecimiento continuo)', 'Sistema digestivo (no vomitan)', 'Patas traseras (fracturas)', 'Estómago (obstrucciones)'],
+      propensiones: ['GI estasis (paro digestivo)', 'Maloclusión dental', 'Mixomatosis', 'VHD', 'Problemas urinarios'],
+      alimentos: ['Heno (70% de dieta)', 'Perejil fresco', 'Cilantro', 'Zanahoria (pequeña cantidad)', 'Manzana sin semillas', 'Pimiento', 'Lechuga romana', 'Brócoli']
+    }
+  },
+
+  {
+    nombre: 'Capibara',
+    img: './img/roedores/capibara.png',
+    datos: {
+      'Nombre científico': 'Hydrochoerus hydrochaeris',
+      'Temperatura': '22°C - 30°C',
+      'Esperanza de vida': '8 - 12 años',
+      'Tamaño': 'Grande',
+      'Personalidad': 'Sociable y tranquila'
+    },
+    tags: ['Exótico', 'Acuático', 'Grande'],
+    cuidados: {
+      alergenos: ['Agua con cloro excesivo', 'Pesticidas en pasto', 'Humedad extrema'],
+      toxicos: ['Ajo', 'Cebolla', 'Chocolate', 'Frutas con semillas', 'Plantas ornamentales (muchas son tóxicas)'],
+      delicadas: ['Piel (se reseca sin agua)', 'Dientes (crecimiento continuo)', 'Patas (pezuñas)', 'Sistema digestivo'],
+      propensiones: ['Problemas dentales', 'Dermatitis por resequedad', 'Parásitos intestinales', 'Neumonía', 'Fracturas de patas'],
+      alimentos: ['Pasto y heno (base)', 'Sandía', 'Melón', 'Mango', 'Maíz', 'Zanahoria', 'Pasto acuático', 'Batata', 'Calabaza']
+    }
+  }
+
+],
+  peces: [
+
+  {
+    nombre: 'Pez Betta',
+    img: './img/peces/betta.png',
+    datos: {
+      'Nombre científico': 'Betta splendens',
+      'Temperatura': '24°C - 28°C',
+      'Esperanza de vida': '3 - 5 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Territorial y vistoso'
+    },
+    tags: ['Tropical', 'Acuático', 'Colorido'],
+    cuidados: {
+      alergenos: ['Agua con cloro sin tratar', 'Cambios bruscos de temperatura', 'Detergentes de pecera'],
+      toxicos: ['Agua con amoníaco', 'Exceso de nitratos', 'Sal en exceso', 'Medicamentos no dosificados', 'Plantas con pesticidas'],
+      delicadas: ['Aletas (podredumbre)', 'Branquias (infecciones)', 'Vejiga natatoria', 'Ojos'],
+      propensiones: ['Pudrición de aletas', 'Ich (puntos blancos)', 'Estreñimiento (vejiga natatoria)', 'Velvet (dorado)', 'Constipación'],
+      alimentos: ['Pellets específicos para betta', 'Larvas de mosquito (bloodworms)', 'Dafnia', 'Artemia', 'Gusanos de tierra (pequeños trozos)']
+    }
+  },
+
+  {
+    nombre: 'Pez Goldfish',
+    img: './img/peces/goldfish.png',
+    datos: {
+      'Nombre científico': 'Carassius auratus',
+      'Temperatura': '18°C - 24°C',
+      'Esperanza de vida': '10 - 15 años',
+      'Tamaño': 'Mediano',
+      'Personalidad': 'Tranquilo y resistente'
+    },
+    tags: ['Acuático', 'Familiar', 'Colorido'],
+    cuidados: {
+      alergenos: ['Agua con cloro', 'Metales pesados en agua', 'Cambios bruscos de pH'],
+      toxicos: ['Agua sin tratar', 'Exceso de amoníaco y nitritos', 'Comida en exceso (contamina agua)', 'Plantas con pesticidas'],
+      delicadas: ['Branquias', 'Aletas', 'Ojos (en variedades burbuja)', 'Vejiga natatoria', 'Escamas'],
+      propensiones: ['Ich', 'Hongos', 'Problemas de vejiga natatoria', 'Hidropsía', 'Sobrealimentación'],
+      alimentos: ['Pellets específicos para goldfish', 'Guisantes (sin cascara, cocidos)', 'Espinaca blanqueada', 'Zanahoria cocida', 'Dafnia', 'Artemia']
+    }
+  },
+
+  {
+    nombre: 'Guppy',
+    img: './img/peces/guppy.png',
+    datos: {
+      'Nombre científico': 'Poecilia reticulata',
+      'Temperatura': '22°C - 28°C',
+      'Esperanza de vida': '2 - 5 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Activo y sociable'
+    },
+    tags: ['Tropical', 'Pequeño', 'Colorido'],
+    cuidados: {
+      alergenos: ['Agua con cloro', 'Cambios bruscos de temperatura y pH', 'Otros peces agresivos'],
+      toxicos: ['Amoníaco', 'Nitritos en exceso', 'Metales pesados', 'Sal en exceso'],
+      delicadas: ['Aleta caudal', 'Branquias', 'Ojos', 'Columna (deformidades congénitas)'],
+      propensiones: ['Ich', 'Columnaris', 'Hongos', 'Velvet', 'Parasitosis intestinal'],
+      alimentos: ['Hojuelas tropicales', 'Artemia', 'Dafnia', 'Microgusanos', 'Espirulina (algas)']
+    }
+  },
+
+  {
+    nombre: 'Disco',
+    img: './img/peces/disco.png',
+    datos: {
+      'Nombre científico': 'Symphysodon aequifasciatus',
+      'Temperatura': '26°C - 30°C',
+      'Esperanza de vida': '10 - 15 años',
+      'Tamaño': 'Mediano',
+      'Personalidad': 'Calmado y elegante'
+    },
+    tags: ['Tropical', 'Elegante', 'Acuático'],
+    cuidados: {
+      alergenos: ['Agua dura (necesitan agua blanda)', 'pH alto', 'Cambios bruscos de temperatura'],
+      toxicos: ['Cloro', 'Amoníaco', 'Metales en el agua', 'Alimentos en descomposición', 'Medicamentos en dosis incorrectas'],
+      delicadas: ['Branquias (muy sensibles)', 'Piel (infecciones por bacterias)', 'Ojos', 'Aletas'],
+      propensiones: ['Parásitos intestinales (Hexamita)', 'Agujero en la cabeza', 'Blanqueamiento de color (estrés)', 'Ich'],
+      alimentos: ['Corazón de res picado', 'Gusano de sangre (bloodworm)', 'Artemia', 'Pellets premium para disco', 'Camarones pequeños']
+    }
+  },
+
+  {
+    nombre: 'Pez Ángel',
+    img: './img/peces/angel.png',
+    datos: {
+      'Nombre científico': 'Pterophyllum scalare',
+      'Temperatura': '24°C - 28°C',
+      'Esperanza de vida': '8 - 12 años',
+      'Tamaño': 'Mediano',
+      'Personalidad': 'Territorial y elegante'
+    },
+    tags: ['Tropical', 'Acuático', 'Colorido'],
+    cuidados: {
+      alergenos: ['Agua con cloro', 'pH extremo', 'Temperatura inestable'],
+      toxicos: ['Amoníaco', 'Nitritos', 'Metales pesados', 'Plantas tratadas con pesticidas'],
+      delicadas: ['Aletas largas (desgarros)', 'Branquias', 'Ojos', 'Columna'],
+      propensiones: ['Ich', 'Pudrición de aletas', 'Parasitosis', 'Columnaris', 'Hexamita'],
+      alimentos: ['Pellets premium', 'Gusano de sangre', 'Artemia', 'Dafnia', 'Camarones pequeños', 'Espinaca blanqueada']
+    }
+  },
+
+  {
+    nombre: 'Molly',
+    img: './img/peces/molly.png',
+    datos: {
+      'Nombre científico': 'Poecilia sphenops',
+      'Temperatura': '24°C - 28°C',
+      'Esperanza de vida': '3 - 5 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Sociable y activo'
+    },
+    tags: ['Tropical', 'Acuático', 'Pequeño'],
+    cuidados: {
+      alergenos: ['Agua muy blanda (les va mejor con algo de sal)', 'Cloro', 'pH ácido extremo'],
+      toxicos: ['Amoníaco', 'Nitritos', 'Agua sin tratar', 'Sal en exceso'],
+      delicadas: ['Aletas', 'Branquias', 'Ojos', 'Sistema digestivo'],
+      propensiones: ['Ich', 'Velvet', 'Enfermedad de mollies (shimmies)', 'Problemas digestivos', 'Constipación'],
+      alimentos: ['Hojuelas tropicales', 'Espirulina', 'Artemia', 'Dafnia', 'Verduras blanqueadas (espinaca, pepino)', 'Algas naturales']
+    }
+  },
+
+  {
+    nombre: 'Tetra Neón',
+    img: './img/peces/neon.png',
+    datos: {
+      'Nombre científico': 'Paracheirodon innesi',
+      'Temperatura': '22°C - 26°C',
+      'Esperanza de vida': '5 - 8 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Pacífico y activo'
+    },
+    tags: ['Tropical', 'Colorido', 'Acuático'],
+    cuidados: {
+      alergenos: ['Agua dura (necesitan agua blanda y ácida)', 'Cloro', 'Temperatura alta'],
+      toxicos: ['Amoníaco', 'Nitritos', 'pH alto', 'Sal (muy sensibles)', 'Metales en agua'],
+      delicadas: ['Branquias (muy sensibles)', 'Coloración (indicador de salud)', 'Ojos', 'Sistema inmune (débil en cautiverio)'],
+      propensiones: ['Enfermedad del neón (Pleistophora hyphessobryconis)', 'Ich', 'Velvet', 'Parasitosis', 'Columnaris'],
+      alimentos: ['Hojuelas micro (tamaño pequeño)', 'Artemia nauplius', 'Dafnia pequeña', 'Microgusanos', 'Polvo de espirulina']
+    }
+  },
+
+  {
+    nombre: 'Koi',
+    img: './img/peces/koi.png',
+    datos: {
+      'Nombre científico': 'Cyprinus rubrofuscus',
+      'Temperatura': '18°C - 24°C',
+      'Esperanza de vida': '20 - 35 años',
+      'Tamaño': 'Grande',
+      'Personalidad': 'Tranquilo y resistente'
+    },
+    tags: ['Estanque', 'Grande', 'Colorido'],
+    cuidados: {
+      alergenos: ['Agua con cloro', 'Metales pesados', 'Pesticidas en plantas acuáticas', 'Cambios bruscos de temperatura'],
+      toxicos: ['Amoníaco', 'Nitritos y nitratos en exceso', 'Pan (muy nocivo)', 'Agua sin filtrar'],
+      delicadas: ['Escamas (heridas por redes)', 'Branquias', 'Barbillones', 'Ojos', 'Aletas'],
+      propensiones: ['Herpesvirus Koi (KHV)', 'Ich', 'Ulceraciones', 'Parasitosis (Gyrodactylus)', 'Sobrealimentación en invierno'],
+      alimentos: ['Pellets premium para koi', 'Sandía', 'Naranja', 'Lechuga', 'Guisantes', 'Espirulina', 'Gambas cocidas (sin sal)', 'Trigo germinado']
+    }
+  },
+
+  {
+    nombre: 'Oscar',
+    img: './img/peces/oscar.png',
+    datos: {
+      'Nombre científico': 'Astronotus ocellatus',
+      'Temperatura': '24°C - 28°C',
+      'Esperanza de vida': '10 - 15 años',
+      'Tamaño': 'Grande',
+      'Personalidad': 'Inteligente y territorial'
+    },
+    tags: ['Tropical', 'Grande', 'Activo'],
+    cuidados: {
+      alergenos: ['Agua sin filtrar adecuadamente (producen mucho amonio)', 'Cloro', 'Cambios de pH'],
+      toxicos: ['Amoníaco', 'Nitritos', 'Peces de colores feeder (portadores de parásitos)', 'Sal en exceso', 'Pan'],
+      delicadas: ['Ojos (infecciones frecuentes)', 'Escamas (heridas en decoración)', 'Branquias', 'Aleta dorsal'],
+      propensiones: ['Ich', 'Agujero en la cabeza (HLLE)', 'Infecciones oculares (pop eye)', 'Parasitosis interna', 'Bloat'],
+      alimentos: ['Pellets grandes premium', 'Gusano de sangre', 'Gambas', 'Pollo cocido (trocito)', 'Calamares', 'Peces vivos (con precaución)', 'Espirulina']
+    }
+  },
+
+  {
+    nombre: 'Pez Globo Enano',
+    img: './img/peces/globo.png',
+    datos: {
+      'Nombre científico': 'Carinotetraodon travancoricus',
+      'Temperatura': '24°C - 28°C',
+      'Esperanza de vida': '5 - 8 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Curioso y territorial'
+    },
+    tags: ['Exótico', 'Acuático', 'Pequeño'],
+    cuidados: {
+      alergenos: ['Agua con cloro', 'pH alto', 'Temperatura baja'],
+      toxicos: ['Amoníaco', 'Nitritos', 'Sal (son de agua dulce)', 'Medicamentos con cobre (letal)'],
+      delicadas: ['Dientes (crecen sin parar, necesitan moluscos)', 'Piel (sin escamas, absorben toxinas)', 'Ojos', 'Aletas'],
+      propensiones: ['Sobrecrecimiento dental', 'Ich', 'Parasitosis interna (gusanos)', 'Agresividad (a otros peces)', 'Infecciones bacterianas'],
+      alimentos: ['Caracoles pequeños (snails — necesarios para desgastar dientes)', 'Bloodworms', 'Dafnia', 'Artemia', 'Camarones pequeños']
+    }
+  }
+
+],
+  reptiles: [
+
+  {
+    nombre: 'Iguana Verde',
+    img: './img/reptiles/iguana.png',
+    datos: {
+      'Nombre científico': 'Iguana iguana',
+      'Temperatura': '28°C - 35°C',
+      'Esperanza de vida': '10 - 20 años',
+      'Tamaño': 'Grande',
+      'Personalidad': 'Tranquila'
+    },
+    tags: ['Herbívoro', 'Tropical', 'Grande'],
+    cuidados: {
+      alergenos: ['Humedad inadecuada', 'Temperatura fría', 'Estrés por manejo brusco'],
+      toxicos: ['Espinaca en exceso (bloquea calcio)', 'Repollo', 'Remolacha', 'Aguacate', 'Cebolla', 'Ajo', 'Frutas cítricas en exceso', 'Proteína animal'],
+      delicadas: ['Cola (se puede desprender)', 'Columna y patas (metabolismo óseo)', 'Piel durante la muda', 'Dedos'],
+      propensiones: ['Enfermedad metabólica ósea (falta de UVB)', 'Salmonella (portadora)', 'Distocia (hembras)', 'Quemaduras por fuente de calor', 'Parásitos intestinales'],
+      alimentos: ['Hojas de mostaza', 'Hojas de nabo', 'Diente de León', 'Calabaza', 'Pimientos', 'Higos', 'Mango', 'Papaya', 'Frambuesas']
+    }
+  },
+
+  {
+    nombre: 'Gecko Leopardo',
+    img: './img/reptiles/gecko.png',
+    datos: {
+      'Nombre científico': 'Eublepharis macularius',
+      'Temperatura': '26°C - 32°C',
+      'Esperanza de vida': '10 - 20 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Dócil y tranquilo'
+    },
+    tags: ['Exótico', 'Nocturno', 'Pequeño'],
+    cuidados: {
+      alergenos: ['Sustrato de arena fina (impactación)', 'Frío', 'Estrés por manejo excesivo'],
+      toxicos: ['Insectos de origen silvestre (pesticidas)', 'Sustrato de arena si se ingiere', 'Plantas decorativas tóxicas'],
+      delicadas: ['Cola (se regenera pero es delicada)', 'Dedos y uñas', 'Piel durante muda', 'Ojos (retención de muda en ojos)'],
+      propensiones: ['Impactación (sustrato ingerido)', 'Retención de muda', 'Síndrome de anorexia', 'Parásitos', 'Deficiencia de calcio'],
+      alimentos: ['Grillos (principal)', 'Tenebrios (mealworms)', 'Cera wax worms (premio ocasional)', 'Superworms', 'Dubia roaches — todos con suplemento de calcio']
+    }
+  },
+
+  {
+    nombre: 'Tortuga de Orejas Rojas',
+    img: './img/reptiles/tortuga.png',
+    datos: {
+      'Nombre científico': 'Trachemys scripta elegans',
+      'Temperatura': '24°C - 30°C',
+      'Esperanza de vida': '20 - 40 años',
+      'Tamaño': 'Mediano',
+      'Personalidad': 'Calmado y resistente'
+    },
+    tags: ['Acuático', 'Tropical', 'Tranquilo'],
+    cuidados: {
+      alergenos: ['Agua con cloro sin tratar', 'Temperatura baja del agua', 'Falta de área para asolearse'],
+      toxicos: ['Ajo', 'Cebolla', 'Aguacate', 'Frutas cítricas', 'Proteínas de mamíferos en exceso', 'Comida de gato/perro'],
+      delicadas: ['Caparazón (no debe estar blando)', 'Pulmones (neumonía si hace frío)', 'Ojos', 'Patas', 'Pico'],
+      propensiones: ['Salmonella (portadora natural)', 'Neumonía', 'Abscesos óticos', 'Hipovitaminosis A', 'Parasitosis'],
+      alimentos: ['Peces pequeños', 'Camarones', 'Lombrices', 'Hojas de lechuga romana', 'Diente de León', 'Zanahoria', 'Pimientos', 'Pellets para tortuga acuática']
+    }
+  },
+
+  {
+    nombre: 'Camaleón Velado',
+    img: './img/reptiles/camaleon.png',
+    datos: {
+      'Nombre científico': 'Chamaeleo calyptratus',
+      'Temperatura': '24°C - 32°C',
+      'Esperanza de vida': '5 - 8 años',
+      'Tamaño': 'Mediano',
+      'Personalidad': 'Solitario y curioso'
+    },
+    tags: ['Exótico', 'Tropical', 'Colorido'],
+    cuidados: {
+      alergenos: ['Frío y sequedad (necesitan humedad 60-80%)', 'Estrés visual (ver su reflejo)', 'Manejo frecuente'],
+      toxicos: ['Insectos capturados en la naturaleza (pesticidas)', 'Plantas tóxicas en el terrario', 'Hiedra', 'Filodendro'],
+      delicadas: ['Ojos (telescópicos, muy delicados)', 'Patas prensiles', 'Cola', 'Sistema renal (deshidratación)'],
+      propensiones: ['Deshidratación (solo beben gotas)', 'Infecciones respiratorias', 'Estomatitis (boca podrida)', 'Deficiencia de vitamina A', 'Gota (ácido úrico)'],
+      alimentos: ['Grillos enriquecidos', 'Langostas', 'Dubia roaches', 'Polillas de cera (premio)', 'Hojas de endibia', 'Diente de León', 'Frambuesas (ocasional)']
+    }
+  },
+
+  {
+    nombre: 'Serpiente del Maíz',
+    img: './img/reptiles/maiz.png',
+    datos: {
+      'Nombre científico': 'Pantherophis guttatus',
+      'Temperatura': '24°C - 30°C',
+      'Esperanza de vida': '10 - 20 años',
+      'Tamaño': 'Mediano',
+      'Personalidad': 'Dócil y tranquila'
+    },
+    tags: ['Exótica', 'Nocturna', 'Calmada'],
+    cuidados: {
+      alergenos: ['Presas vivas que puedan morderla', 'Sustrato de cedro (tóxico para serpientes)', 'Humo'],
+      toxicos: ['Sustrato de cedro y pino (aceites esenciales)', 'Presas con pesticidas', 'Plantas decorativas tóxicas'],
+      delicadas: ['Piel durante la muda', 'Mandíbulas', 'Columna vertebral', 'Ojos durante muda (escamas oculares)'],
+      propensiones: ['Retención de muda', 'Anorexia (épocas reproductivas)', 'Infecciones respiratorias', 'Parasitosis', 'Quemaduras por fuente de calor'],
+      alimentos: ['Ratones prekill (congelados descongelados)', 'Ratas pequeñas (según tamaño de la serpiente)', 'Pollitos (ocasional)', 'Codornices (adultas grandes)']
+    }
+  },
+
+  {
+    nombre: 'Dragón Barbudo',
+    img: './img/reptiles/dragon.png',
+    datos: {
+      'Nombre científico': 'Pogona vitticeps',
+      'Temperatura': '28°C - 38°C',
+      'Esperanza de vida': '8 - 15 años',
+      'Tamaño': 'Mediano',
+      'Personalidad': 'Sociable y tranquilo'
+    },
+    tags: ['Desértico', 'Exótico', 'Inteligente'],
+    cuidados: {
+      alergenos: ['Frío (necesitan calor)', 'Sustrato inadecuado (arena fina)', 'Estrés por otras mascotas'],
+      toxicos: ['Espinaca en exceso', 'Lechuga iceberg', 'Aguacate', 'Cebolla', 'Ajo', 'Repollo', 'Luciérnagas (letal)', 'Insectos silvestres con pesticidas'],
+      delicadas: ['Dedos y uñas', 'Cola', 'Piel durante muda', 'Barba (puede oscurecerse por estrés)', 'Articulaciones'],
+      propensiones: ['Enfermedad metabólica ósea', 'Impactación intestinal', 'Coccidia (parásito)', 'Adenovirus', 'Quemaduras'],
+      alimentos: ['Grillos', 'Dubia roaches', 'Tenebrios (con moderación)', 'Hojas de mostaza', 'Diente de León', 'Calabaza', 'Pimiento', 'Mango', 'Higos', 'Frambuesas']
+    }
+  },
+
+  {
+    nombre: 'Boa Constrictor',
+    img: './img/reptiles/boa.png',
+    datos: {
+      'Nombre científico': 'Boa constrictor',
+      'Temperatura': '26°C - 32°C',
+      'Esperanza de vida': '20 - 30 años',
+      'Tamaño': 'Grande',
+      'Personalidad': 'Calmado y reservado'
+    },
+    tags: ['Exótico', 'Grande', 'Tropical'],
+    cuidados: {
+      alergenos: ['Sustrato de cedro y pino (aceites tóxicos)', 'Presas vivas (muerden)', 'Frío excesivo'],
+      toxicos: ['Sustrato de cedro', 'Plantas ornamentales en terrario', 'Presas con pesticidas o enfermedades'],
+      delicadas: ['Piel durante la muda (manchas azuladas en ojos = pre-muda)', 'Mandíbulas', 'Columna', 'Sistema digestivo (no mover tras comer 48h)'],
+      propensiones: ['Infección respiratoria', 'Parásitos intestinales', 'Retención de muda', 'Infección viral (IBD)', 'Quemaduras'],
+      alimentos: ['Ratas prekill', 'Conejos (adultas grandes)', 'Pollos (adultas muy grandes)', 'Presas congeladas-descongeladas siempre preferibles']
+    }
+  },
+
+  {
+    nombre: 'Anolis Verde',
+    img: './img/reptiles/anolis.png',
+    datos: {
+      'Nombre científico': 'Anolis carolinensis',
+      'Temperatura': '24°C - 30°C',
+      'Esperanza de vida': '4 - 8 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Activo y territorial'
+    },
+    tags: ['Tropical', 'Pequeño', 'Colorido'],
+    cuidados: {
+      alergenos: ['Frío y baja humedad', 'Estrés por manejo excesivo', 'Otro macho en el mismo terrario'],
+      toxicos: ['Insectos silvestres con pesticidas', 'Plantas tóxicas decorativas', 'Productos químicos del hogar'],
+      delicadas: ['Cola (autotomía)', 'Papada (gular)', 'Patas y dedos (adhesivos)', 'Ojos', 'Piel durante muda'],
+      propensiones: ['Retención de muda', 'Parasitosis', 'Infecciones respiratorias', 'Deficiencia de calcio', 'Estrés crónico'],
+      alimentos: ['Grillos pequeños', 'Moscas de la fruta (Drosophila)', 'Tenebrios pequeños', 'Isópodos', 'Polillas de cera (premio)']
+    }
+  },
+
+  {
+    nombre: 'Uromastyx',
+    img: './img/reptiles/uromax.png',
+    datos: {
+      'Nombre científico': 'Uromastyx aegyptia',
+      'Temperatura': '30°C - 40°C',
+      'Esperanza de vida': '15 - 25 años',
+      'Tamaño': 'Mediano',
+      'Personalidad': 'Tranquilo y resistente'
+    },
+    tags: ['Desértico', 'Herbívoro', 'Exótico'],
+    cuidados: {
+      alergenos: ['Frío y humedad (son de desierto)', 'Frutas con alto contenido en azúcar', 'Proteína animal (riñones)'],
+      toxicos: ['Proteína animal en exceso', 'Frutas azucaradas en exceso', 'Lechuga iceberg', 'Aguacate', 'Ruibarbo'],
+      delicadas: ['Piel durante muda (especialmente la cola escamosa)', 'Riñones (dieta con alto fósforo)', 'Articulaciones', 'Dedos'],
+      propensiones: ['Gota (ácido úrico)', 'Impactación', 'Infección respiratoria (por frío)', 'Deficiencia de calcio'],
+      alimentos: ['Semillas de mijo y alpiste', 'Lentejas germinadas', 'Hojas de mostaza', 'Diente de León', 'Endibias', 'Pimientos', 'Calabaza', 'Higos secos (ocasional)']
+    }
+  },
+
+  {
+    nombre: 'Pitón Bola',
+    img: './img/reptiles/piton.png',
+    datos: {
+      'Nombre científico': 'Python regius',
+      'Temperatura': '26°C - 32°C',
+      'Esperanza de vida': '20 - 30 años',
+      'Tamaño': 'Mediano',
+      'Personalidad': 'Tímida y dócil'
+    },
+    tags: ['Exótica', 'Nocturna', 'Calmada'],
+    cuidados: {
+      alergenos: ['Sustrato de cedro y pino', 'Frío', 'Estrés (se enrollan en bola)', 'Presas vivas que muerdan'],
+      toxicos: ['Sustrato de cedro', 'Plantas con aceites esenciales', 'Presas con enfermedades'],
+      delicadas: ['Piel durante muda', 'Ojos (retención de muda en escamas oculares)', 'Mandíbulas', 'Columna vertebral'],
+      propensiones: ['Anorexia (muy frecuente por estrés)', 'Infección respiratoria', 'Parásitos (mites)', 'Retención de muda', 'IBD (enfermedad de cuerpos de inclusión)'],
+      alimentos: ['Ratones prekill congelados-descongelados', 'Ratas (adultas)', 'Codornices (variedad ocasional)', 'Pollitos (ocasional)']
+    }
+  }
+
+],
+  exoticos: [
+
+  {
+    nombre: 'Hurón',
+    img: './img/exoticos/huron.png',
+    datos: {
+      'Nombre científico': 'Mustela putorius furo',
+      'Temperatura': '15°C - 24°C',
+      'Esperanza de vida': '6 - 10 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Juguetón y curioso'
+    },
+    tags: ['Exótico', 'Activo', 'Carnívoro'],
+    cuidados: {
+      alergenos: ['Polvo', 'Perfumes fuertes', 'Ciertos plásticos del juguete'],
+      toxicos: ['Frutas y vegetales (sistema digestivo incapaz)', 'Granos', 'Lácteos', 'Azúcar', 'Chocolate', 'Cebolla', 'Ajo', 'Pasas', 'Uvas'],
+      delicadas: ['Glándulas adrenales', 'Columna (MH)', 'Dientes', 'Patas (fracturas)', 'Bazo'],
+      propensiones: ['Tumor suprarrenal', 'Insulinoma (tumor pancreático)', 'Linfoma', 'Aleutian disease', 'Anemia aplásica (hembras en celo)'],
+      alimentos: ['Carne cruda o cocida (pollo, pavo, res)', 'Alimento húmedo de hurón o gato premium (sin granos)', 'Hígado (ocasional)', 'Huevo de codorniz', 'Caldo de hueso (sin sal)']
+    }
+  },
+
+  {
+    nombre: 'Erizo Pigmeo Africano',
+    img: './img/exoticos/erizo.png',
+    datos: {
+      'Nombre científico': 'Atelerix albiventris',
+      'Temperatura': '22°C - 28°C',
+      'Esperanza de vida': '4 - 7 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Tímido y tranquilo'
+    },
+    tags: ['Nocturno', 'Exótico', 'Pequeño'],
+    cuidados: {
+      alergenos: ['Frío (hibernación peligrosa en la especie africana)', 'Virutas de cedro', 'Perfumes'],
+      toxicos: ['Aguacate', 'Uvas y pasas', 'Cebolla', 'Ajo', 'Chocolate', 'Nueces de macadamia', 'Leche', 'Alcohol'],
+      delicadas: ['Patas (fracturas en rueda con rejilla)', 'Piel bajo las púas', 'Ojos', 'Encías (enfermedad dental)'],
+      propensiones: ['Síndrome de tambaleo (WHS, neurológico)', 'Tumores', 'Problemas dentales', 'Enfermedad hepática', 'Parasitosis'],
+      alimentos: ['Insectos (grillos, tenebrios)', 'Pollo cocido (trocito)', 'Comida de gato de alta calidad', 'Manzana (poca)', 'Zanahoria cocida', 'Huevo duro (pequeño)']
+    }
+  },
+
+  {
+    nombre: 'Sugar Glider',
+    img: './img/exoticos/sugar.png',
+    datos: {
+      'Nombre científico': 'Petaurus breviceps',
+      'Temperatura': '22°C - 28°C',
+      'Esperanza de vida': '10 - 15 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Sociable y activo'
+    },
+    tags: ['Planeador', 'Exótico', 'Nocturno'],
+    cuidados: {
+      alergenos: ['Frío', 'Soledad (depresión severa)', 'Estrés por ruidos fuertes'],
+      toxicos: ['Chocolate', 'Cafeína', 'Cebolla', 'Ajo', 'Aguacate', 'Frutos del bosque con oxalatos', 'Azúcar refinada en exceso'],
+      delicadas: ['Membrana de planeo (patagium)', 'Patas y uñas', 'Ojos (fotosensibles)', 'Sistema renal', 'Sistema nervioso'],
+      propensiones: ['Síndrome de automutilación', 'Deficiencia de calcio (hipocalcemia)', 'Parasitosis', 'Caries (dieta con azúcar)', 'Estrés crónico'],
+      alimentos: ['Néctar (dieta BML o similar)', 'Frutas variadas (manzana, pera, papaya, mango)', 'Insectos (grillo, dubia)', 'Yogur natural sin azúcar', 'Verduras suaves']
+    }
+  },
+
+  {
+    nombre: 'Zorro Fénec',
+    img: './img/exoticos/zorro.png',
+    datos: {
+      'Nombre científico': 'Vulpes zerda',
+      'Temperatura': '20°C - 30°C',
+      'Esperanza de vida': '10 - 14 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Curioso y energético'
+    },
+    tags: ['Desértico', 'Exótico', 'Inteligente'],
+    cuidados: {
+      alergenos: ['Frío extremo (son del Sahara)', 'Cambios de temperatura bruscos'],
+      toxicos: ['Chocolate', 'Uvas y pasas', 'Cebolla', 'Ajo', 'Aguacate', 'Xilitol', 'Nueces de macadamia', 'Cafeína'],
+      delicadas: ['Orejas (grandes y muy sensibles)', 'Patas (adaptadas a arena, no a superficies frías y duras)', 'Sistema nervioso', 'Riñones'],
+      propensiones: ['Problemas renales', 'Epilepsia', 'Distemper canino (necesitan vacuna)', 'Parasitosis', 'Deficiencias nutricionales'],
+      alimentos: ['Pollo cocido', 'Pavo', 'Huevo', 'Frutas pequeñas (manzana, pera, sandía)', 'Insectos (grillo, larvas)', 'Verduras suaves', 'Alimento de hurones o zorros']
+    }
+  },
+
+  {
+    nombre: 'Axolote',
+    img: './img/exoticos/axolote.png',
+    datos: {
+      'Nombre científico': 'Ambystoma mexicanum',
+      'Temperatura': '16°C - 20°C',
+      'Esperanza de vida': '10 - 15 años',
+      'Tamaño': 'Mediano',
+      'Personalidad': 'Calmado y curioso'
+    },
+    tags: ['Acuático', 'Exótico', 'Anfibio'],
+    cuidados: {
+      alergenos: ['Agua con cloro (letal)', 'Temperatura del agua alta (>22°C)', 'Metales pesados en agua'],
+      toxicos: ['Cloro', 'Amoníaco', 'Nitritos', 'Sal (son de agua dulce)', 'Detergentes', 'Medicamentos no aptos para anfibios'],
+      delicadas: ['Branquias externas (no tocar)', 'Piel (absorbe sustancias)', 'Extremidades (frágiles, pero se regeneran)', 'Ojos'],
+      propensiones: ['Impactación (arena como sustrato)', 'Hongos en branquias', 'Infecciones bacterianas', 'Estrés por temperatura alta', 'Columnaris'],
+      alimentos: ['Gusanos de tierra (principal)', 'Bloodworms congelados', 'Pellets para axolote o salmón', 'Artemia adulta', 'Pedazos pequeños de pechuga de pollo sin condimento']
+    }
+  },
+
+  {
+    nombre: 'Tarántula Rosa Chilena',
+    img: './img/exoticos/tarantula.png',
+    datos: {
+      'Nombre científico': 'Grammostola rosea',
+      'Temperatura': '22°C - 28°C',
+      'Esperanza de vida': '15 - 20 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Tranquila y solitaria'
+    },
+    tags: ['Exótica', 'Arácnido', 'Nocturna'],
+    cuidados: {
+      alergenos: ['Pesticidas en insectos', 'Humedad excesiva', 'Frío'],
+      toxicos: ['Insectos tratados con pesticidas', 'Sal', 'Productos químicos del hogar', 'Spray de insecticida cerca del terrario'],
+      delicadas: ['Abdomen (si cae de altura muere)', 'Pelos urticantes (la lanzan como defensa)', 'Exoesqueleto durante la muda', 'Quelíceros (colmillos)'],
+      propensiones: ['Deshidratación durante la muda', 'Ataque por presas vivas (grillos que muerden)', 'Ecdisis fallida (muda incompleta)', 'Abscesos por traumatismo'],
+      alimentos: ['Grillos (presas premortem o prekill)', 'Tenebrios', 'Langostas', 'Dubia roaches', 'Pinkies (crías de ratón sin pelo, ocasional para adultas)']
+    }
+  },
+
+  {
+    nombre: 'Escorpión Emperador',
+    img: './img/exoticos/escorpion.png',
+    datos: {
+      'Nombre científico': 'Pandinus imperator',
+      'Temperatura': '24°C - 30°C',
+      'Esperanza de vida': '6 - 8 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Solitario y tranquilo'
+    },
+    tags: ['Exótico', 'Nocturno', 'Arácnido'],
+    cuidados: {
+      alergenos: ['Baja humedad (necesitan 70-80%)', 'Frío', 'Insecticidas del hogar'],
+      toxicos: ['Insectos con pesticidas', 'Productos químicos del ambiente', 'Frutas y vegetales (son carnívoros)'],
+      delicadas: ['Aguijón (manejo siempre con pinzas)', 'Quelíceros', 'Abdomen', 'Exoesqueleto durante muda'],
+      propensiones: ['Ecdisis fallida', 'Deshidratación', 'Infecciones fúngicas (en exceso de humedad)', 'Ataques por presas vivas'],
+      alimentos: ['Grillos', 'Cucarachas dubia', 'Tenebrios', 'Gusano de tierra', 'Pinkies (crías de ratón, ocasional)']
+    }
+  },
+
+  {
+    nombre: 'Mono Tití',
+    img: './img/exoticos/mono.png',
+    datos: {
+      'Nombre científico': 'Callithrix jacchus',
+      'Temperatura': '24°C - 30°C',
+      'Esperanza de vida': '10 - 15 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Inteligente y sociable'
+    },
+    tags: ['Primate', 'Exótico', 'Activo'],
+    cuidados: {
+      alergenos: ['Estrés por aislamiento', 'Cambios de temperatura', 'Manipulación de extraños'],
+      toxicos: ['Chocolate', 'Cafeína', 'Alcohol', 'Aguacate', 'Cebolla', 'Ajo', 'Nueces en exceso', 'Pasas'],
+      delicadas: ['Sistema nervioso (muy sensible al estrés)', 'Dientes', 'Columna', 'Manos y dedos'],
+      propensiones: ['Herpesvirus B (transmisible a humanos)', 'Deficiencia de vitamina D3', 'Diabetes', 'Estrés crónico', 'Maloclusión dental'],
+      alimentos: ['Frutas tropicales (mango, papaya, maracuyá)', 'Insectos (grillo, larvas)', 'Huevo cocido', 'Yogur natural', 'Hojas de árbol', 'Goma arábiga (natural)', 'Verduras variadas']
+    }
+  },
+
+  {
+    nombre: 'Kinkajú',
+    img: './img/exoticos/kinkaju.png',
+    datos: {
+      'Nombre científico': 'Potos flavus',
+      'Temperatura': '22°C - 28°C',
+      'Esperanza de vida': '20 - 25 años',
+      'Tamaño': 'Mediano',
+      'Personalidad': 'Curioso y nocturno'
+    },
+    tags: ['Tropical', 'Exótico', 'Arborícola'],
+    cuidados: {
+      alergenos: ['Frío', 'Humedad baja', 'Estrés por ruidos o cambios de rutina'],
+      toxicos: ['Aguacate', 'Chocolate', 'Cafeína', 'Cebolla', 'Ajo', 'Uvas', 'Alcohol', 'Nueces en exceso'],
+      delicadas: ['Cola prensil (no tirar)', 'Dientes', 'Patas (garras)', 'Sistema digestivo', 'Hígado'],
+      propensiones: ['Roundworm de Baylis (peligroso)', 'Infecciones por mordeduras', 'Problemas dentales', 'Obesidad', 'Parasitosis'],
+      alimentos: ['Frutas tropicales (mango, plátano, papaya, higo)', 'Néctar natural', 'Yogur sin azúcar', 'Insectos (ocasional)', 'Miel (pequeña cantidad)', 'Flores comestibles']
+    }
+  },
+
+  {
+    nombre: 'Suricata',
+    img: './img/exoticos/suricata.png',
+    datos: {
+      'Nombre científico': 'Suricata suricatta',
+      'Temperatura': '22°C - 30°C',
+      'Esperanza de vida': '10 - 14 años',
+      'Tamaño': 'Pequeño',
+      'Personalidad': 'Sociable y alerta'
+    },
+    tags: ['Desértico', 'Exótico', 'Activo'],
+    cuidados: {
+      alergenos: ['Frío y humedad excesiva', 'Aislamiento (viven en grupos)', 'Estrés por encierro sin actividad'],
+      toxicos: ['Chocolate', 'Ajo', 'Cebolla', 'Aguacate', 'Uvas', 'Pasas', 'Comida procesada para humanos'],
+      delicadas: ['Ojos (visión excepcional, sensibles a luz excesiva)', 'Orejas', 'Espalda (escaldadura solar en cautiverio)', 'Dientes', 'Uñas'],
+      propensiones: ['Tuberculosis (susceptibles)', 'Parasitosis intestinal', 'Problemas dentales', 'Lesiones por mordeduras grupales', 'Deficiencia de vitamina D'],
+      alimentos: ['Insectos (grillos, tenebrios, escorpiones sin veneno)', 'Huevo cocido', 'Pollo cocido', 'Frutas suaves (manzana, melón)', 'Verduras (zanahoria, pepino)', 'Lagartijas pequeñas (cautiverio)']
+    }
+  }
+
+],
+};
+
+/* =========================
+   VARIABLES
+========================= */
+
+let categoriaActual = 'perros';
+
+let centerIndex = 0;
+
+const positions = [
+  'pos-far1',
+  'pos-side1',
+  'pos-center',
+  'pos-side2',
+  'pos-far2'
+];
+
+/* =========================
+   CAMBIAR CATEGORIA
+========================= */
+
+function changeCategory(cat, btn){
+
+  categoriaActual = cat;
+
+  centerIndex = 0;
+
+  document.querySelectorAll('.cat-btn')
+  .forEach(b => b.classList.remove('active'));
+
+  btn.classList.add('active');
+
+  buildCarousel();
+
+}
+
+/* =========================
+   CREAR CARRUSEL
+========================= */
+
+function buildCarousel(){
+
+  const stage =
+  document.getElementById('carouselStage');
+
+  stage.innerHTML = '';
+
+  const mascotas =
+  mascotasData[categoriaActual];
+
+  const total = mascotas.length;
+
+  const offsets = [-2,-1,0,1,2];
+
+  offsets.forEach((offset,posIdx)=>{
+
+    const dataIdx =
+    ((centerIndex + offset)%total + total)%total;
+
+    const pet = mascotas[dataIdx];
+
+    const item = document.createElement('div');
+
+    item.className =
+    `reptile-item ${positions[posIdx]}`;
+
+    item.innerHTML = `
+
+    <div class="pet-card">
+
+      <div class="pet-image">
+
+        <img src="${pet.img}" alt="${pet.nombre}">
+
+      </div>
+
+      <div class="pet-content">
+
+        <h3>${pet.nombre}</h3>
+
+        <p>${pet.datos.Personalidad}</p>
+
+      </div>
+
+    </div>
+
+    `;
+
+    item.addEventListener('click',()=>{
+
+      if(positions[posIdx] === 'pos-center'){
+
+        openPanel(dataIdx);
+
+      }else{
+
+        rotate(offset);
+
+      }
+
+    });
+
+    stage.appendChild(item);
+
+  });
+
+}
+
+/* =========================
+   ROTAR
+========================= */
+
+function rotate(dir){
+
+  const total =
+  mascotasData[categoriaActual].length;
+
+  centerIndex =
+  ((centerIndex + dir)%total + total)%total;
+
+  buildCarousel();
+
+}
+
+/* =========================
+   CAMBIAR TAB EN MODAL
+========================= */
+
+function switchTab(tabName, btn){
+
+  document.querySelectorAll('.tab-content')
+  .forEach(t => t.classList.remove('active'));
+
+  document.querySelectorAll('.modal-tab-btn')
+  .forEach(b => b.classList.remove('active'));
+
+  document.getElementById('tab-' + tabName)
+  .classList.add('active');
+
+  btn.classList.add('active');
+
+}
+
+/* =========================
+   ABRIR MODAL
+========================= */
+
+function openPanel(idx){
+
+  const pet =
+  mascotasData[categoriaActual][idx];
+
+  document.getElementById('panelImg').src =
+  pet.img;
+
+  document.getElementById('panelName').textContent =
+  pet.nombre;
+
+  // Tab general
+  document.getElementById('panelTable').innerHTML =
+
+  Object.entries(pet.datos)
+
+  .map(([k,v]) => `
+
+    <tr>
+      <td>${k}</td>
+      <td>${v}</td>
+    </tr>
+
+  `).join('');
+
+  document.getElementById('panelTags').innerHTML =
+
+  pet.tags.map(tag =>
+
+    `<span class="info-tag">${tag}</span>`
+
+  ).join('');
+
+  // Tab cuidados
+  const c = pet.cuidados;
+
+  document.getElementById('careAlergenos').innerHTML =
+  c.alergenos.map(a => `<span class="care-tag warning">${a}</span>`).join('');
+
+  document.getElementById('careToxicos').innerHTML =
+  c.toxicos.map(a => `<span class="care-tag danger">${a}</span>`).join('');
+
+  document.getElementById('careDelicadas').innerHTML =
+  c.delicadas.map(a => `<span class="care-tag delicate">${a}</span>`).join('');
+
+  document.getElementById('carePropensiones').innerHTML =
+  c.propensiones.map(a => `<span class="care-tag prone">${a}</span>`).join('');
+
+  document.getElementById('careAlimentos').innerHTML =
+  c.alimentos.map(a => `<span class="care-tag food">${a}</span>`).join('');
+
+  // Siempre abrir en tab general
+  document.querySelectorAll('.tab-content')
+  .forEach(t => t.classList.remove('active'));
+
+  document.querySelectorAll('.modal-tab-btn')
+  .forEach(b => b.classList.remove('active'));
+
+  document.getElementById('tab-general').classList.add('active');
+  document.querySelectorAll('.modal-tab-btn')[0].classList.add('active');
+
+  document.getElementById('infoOverlay')
+  .classList.add('open');
+
+  document.body.style.overflow = 'hidden';
+
+}
+
+/* =========================
+   CERRAR MODAL
+========================= */
+
+function closeOverlay(){
+
+  document.getElementById('infoOverlay')
+  .classList.remove('open');
+
+  document.body.style.overflow = '';
+
+}
+
+function closePanel(e){
+
+  if(e.target.id === 'infoOverlay'){
+
+    closeOverlay();
+
+  }
+
+}
+
+/* =========================
+   TECLADO
+========================= */
+
+document.addEventListener('keydown', e=>{
+
+  if(e.key === 'Escape'){
+    closeOverlay();
+  }
+
+  if(e.key === 'ArrowLeft'){
+    rotate(-1);
+  }
+
+  if(e.key === 'ArrowRight'){
+    rotate(1);
+  }
+
+});
+
+/* =========================
+   INICIAR
+========================= */
+
+buildCarousel();
+
+</script>
+
+</body>
+</html>

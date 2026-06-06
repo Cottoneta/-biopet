@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BioPet - Contacto</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #FAF3DC;
+      --blue-light: #A8C8F0;
+      --blue-mid: #7AAEE8;
+      --blue-dark: #5B8ED4;
+      --blue-btn: #6BAED6;
+      --pink-accent: #F9A8C9;
+      --text-dark: #3a5a8a;
+      --text-body: #5a7090;
+      --white: #ffffff;
+      --shadow: 0 8px 32px rgba(91, 142, 212, 0.18);
+      --radius: 2rem;
+    }
+
+    body {
+      background-color: var(--cream);
+      font-family: 'Nunito', sans-serif;
+      color: var(--text-body);
+      min-height: 100vh;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 3rem;
+      background: var(--cream);
+    }
+
+    .logo img {
+      height: 64px;
+    }
+
+    /* Fallback logo if image missing */
+    .logo-text {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.8rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .logo-text span:first-child { color: var(--blue-light); }
+    .logo-text span:last-child  { color: #E8D88A; }
+
+    .menu {
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    .menu a {
+      text-decoration: none;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text-dark);
+      transition: color .2s;
+    }
+    .menu a:hover, .menu a.active { color: var(--blue-dark); }
+
+    .btn-nav {
+      background: var(--blue-btn);
+      color: white;
+      border: none;
+      border-radius: 2rem;
+      padding: .65rem 1.8rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+      box-shadow: 0 4px 12px rgba(107,174,214,.35);
+    }
+    .btn-nav:hover { background: var(--blue-dark); transform: translateY(-1px); }
+
+    /* ── MAIN ── */
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    /* Paw decoration */
+    .paw-deco {
+      font-size: 1.5rem;
+      opacity: .35;
+      user-select: none;
+    }
+
+    .page-title {
+      font-family: 'Baloo 2', cursive;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 800;
+      color: var(--blue-dark);
+      text-shadow: 3px 3px 0 rgba(255,255,255,.6);
+      text-align: center;
+      margin-bottom: .5rem;
+    }
+
+    .page-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-body);
+      text-align: center;
+      margin-bottom: 2.8rem;
+    }
+
+    /* ── CARD ── */
+    .contact-card {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 580px;
+      padding: 2.8rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* decorative blob top-right */
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 140px; height: 140px;
+      background: var(--blue-light);
+      border-radius: 50%;
+      opacity: .3;
+      pointer-events: none;
+    }
+    .contact-card::after {
+      content: '';
+      position: absolute;
+      bottom: -30px; left: -30px;
+      width: 100px; height: 100px;
+      background: var(--pink-accent);
+      border-radius: 50%;
+      opacity: .25;
+      pointer-events: none;
+    }
+
+    /* ── LOCKED STATE ── */
+    .locked-notice {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem 0;
+      text-align: center;
+    }
+
+    .locked-icon {
+      font-size: 3rem;
+    }
+
+    .locked-notice p {
+      font-size: 1rem;
+      color: var(--text-body);
+      line-height: 1.6;
+    }
+
+    .btn-login {
+      background: var(--blue-btn);
+      color: white;
+      border: none;
+      border-radius: 2rem;
+      padding: .7rem 2rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+      box-shadow: 0 4px 14px rgba(107,174,214,.4);
+      margin-top: .5rem;
+    }
+    .btn-login:hover { background: var(--blue-dark); transform: translateY(-2px); }
+
+    /* ── FORM ── */
+    .contact-form { display: none; flex-direction: column; gap: 1.4rem; }
+    .contact-form.visible { display: flex; }
+
+    .user-greeting {
+      display: none;
+      align-items: center;
+      gap: .6rem;
+      background: #EEF6FF;
+      border-radius: 1rem;
+      padding: .7rem 1.2rem;
+      font-size: .92rem;
+      color: var(--text-dark);
+      font-weight: 600;
+      margin-bottom: .3rem;
+    }
+    .user-greeting.visible { display: flex; }
+    .user-dot { width: 8px; height: 8px; background: #5BD47A; border-radius: 50%; flex-shrink: 0; }
+
+    .field { display: flex; flex-direction: column; gap: .45rem; }
+
+    label {
+      font-weight: 700;
+      font-size: .9rem;
+      color: var(--text-dark);
+    }
+
+    input[type="text"],
+    textarea {
+      border: 2px solid #D6E8F8;
+      border-radius: 1.1rem;
+      padding: .8rem 1.1rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: .97rem;
+      color: var(--text-dark);
+      background: #F7FBFF;
+      transition: border-color .2s, box-shadow .2s;
+      resize: none;
+      outline: none;
+    }
+    input[type="text"]:focus,
+    textarea:focus {
+      border-color: var(--blue-mid);
+      box-shadow: 0 0 0 3px rgba(168,200,240,.35);
+      background: white;
+    }
+
+    textarea { min-height: 130px; }
+
+    .char-count {
+      font-size: .78rem;
+      color: #a0b8d0;
+      text-align: right;
+      margin-top: -.2rem;
+    }
+
+    .btn-send {
+      background: var(--blue-btn);
+      color: white;
+      border: none;
+      border-radius: 2rem;
+      padding: .85rem 2rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 5px 18px rgba(107,174,214,.4);
+      margin-top: .4rem;
+    }
+    .btn-send:hover:not(:disabled) { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(91,142,212,.4); }
+    .btn-send:disabled { opacity: .6; cursor: not-allowed; }
+
+    /* ── SUCCESS ── */
+    .success-msg {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: .8rem;
+      padding: 1rem 0;
+      text-align: center;
+      animation: popIn .4s cubic-bezier(.34,1.56,.64,1);
+    }
+    .success-msg.visible { display: flex; }
+    .success-icon { font-size: 3.5rem; }
+    .success-msg h3 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.5rem;
+      color: var(--blue-dark);
+      font-weight: 700;
+    }
+    .success-msg p { font-size: .95rem; color: var(--text-body); line-height: 1.6; }
+    .btn-another {
+      background: none;
+      border: 2px solid var(--blue-btn);
+      color: var(--blue-btn);
+      border-radius: 2rem;
+      padding: .6rem 1.6rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: .95rem;
+      cursor: pointer;
+      margin-top: .4rem;
+      transition: all .2s;
+    }
+    .btn-another:hover { background: var(--blue-btn); color: white; }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(.85); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    /* ── INFO STRIP ── */
+    .info-strip {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .info-chip {
+      background: white;
+      border-radius: 1.5rem;
+      padding: .75rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      box-shadow: 0 4px 14px rgba(91,142,212,.12);
+    }
+    .info-chip span:first-child { font-size: 1.1rem; }
+
+    /* ── FLOATING PAWS ── */
+    .floaty { position: fixed; pointer-events: none; font-size: 1.4rem; opacity: .12; animation: float 8s ease-in-out infinite; }
+    .floaty:nth-child(1) { top: 12%; left: 5%; animation-delay: 0s; }
+    .floaty:nth-child(2) { top: 30%; right: 8%; animation-delay: 2s; }
+    .floaty:nth-child(3) { bottom: 20%; left: 10%; animation-delay: 4s; }
+    .floaty:nth-child(4) { bottom: 10%; right: 6%; animation-delay: 1s; }
+    @keyframes float {
+      0%,100% { transform: translateY(0) rotate(-10deg); }
+      50%      { transform: translateY(-14px) rotate(10deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating paws -->
+  <div class="floaty">🐾</div>
+  <div class="floaty">🐾</div>
+  <div class="floaty">🐾</div>
+  <div class="floaty">🐾</div>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="logo">
+      <img src="./img/logo.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <div class="logo-text" style="display:none"><span>BIO</span><br><span>PET</span></div>
+    </div>
+
+    <div class="menu">
+      <a href="/inicio">Inicio</a>
+      <a href="/pets">Mascotas</a>
+      <a href="/contacto" class="active">Contacto</a>
+    </div>
+
+    <button class="btn-login" onclick="window.location.href='/login'">Iniciar sesión</button>
+  </nav>
+
+  <!-- MAIN -->
+  <main>
+    <p class="paw-deco">🐾 &nbsp; ✉️ &nbsp; 🐾</p>
+    <h1 class="page-title">Contáctanos</h1>
+    <p class="page-subtitle">¿Tienes alguna pregunta sobre tus mascotas? ¡Escríbenos!</p>
+
+    <div class="contact-card">
+
+      <!-- LOCKED NOTICE (shown when not logged in) -->
+      <div class="locked-notice" id="lockedNotice">
+        <div class="locked-icon">🔒</div>
+        <p>Para enviarnos un mensaje necesitas<br><strong>iniciar sesión</strong> primero.</p>
+        <button class="btn-login" onclick="window.location.href='/login'">Iniciar sesión</button>
+      </div>
+
+      <!-- USER GREETING -->
+      <div class="user-greeting" id="userGreeting">
+        <div class="user-dot"></div>
+        <span id="greetingText">Enviando como: usuario@email.com</span>
+      </div>
+
+      <!-- FORM -->
+      <div class="contact-form" id="contactForm">
+        <div class="field">
+          <label for="asunto">📋 Asunto</label>
+          <input type="text" id="asunto" placeholder="Ej: Pregunta sobre alimentación de perros" maxlength="80">
+        </div>
+
+        <div class="field">
+          <label for="mensaje">💬 Mensaje</label>
+          <textarea id="mensaje" placeholder="Escribe tu pregunta o comentario aquí..." maxlength="500"></textarea>
+          <span class="char-count" id="charCount">0 / 500</span>
+        </div>
+
+        <button class="btn-send" id="sendBtn" onclick="sendEmail()">
+          <span>✉️</span> Enviar mensaje
+        </button>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="success-msg" id="successMsg">
+        <div class="success-icon">🐶💌</div>
+        <h3>¡Mensaje enviado!</h3>
+        <p>Tu correo fue enviado a <strong>biopetwoofco@gmail.com</strong>.<br>Te responderemos lo antes posible. 🐾</p>
+        <button class="btn-another" onclick="resetForm()">Enviar otro mensaje</button>
+      </div>
+
+    </div>
+
+    <!-- INFO CHIPS -->
+    <div class="info-strip">
+      <div class="info-chip"><span>📧</span> biopetwoofco@gmail.com</div>
+      <div class="info-chip"><span>⏰</span> Respondemos en 24 - 48 hrs</div>
+      <div class="info-chip"><span>🐾</span> Siempre para ayudarte</div>
+    </div>
+  </main>
+
+  <script>
+    // ── Simulated session state ──
+    let loggedIn = false;
+    let userEmail = '';
+
+    // On load, check localStorage for session
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('biopet_user');
+      if (saved) {
+        loggedIn = true;
+        userEmail = saved;
+        showLoggedIn();
+      }
+
+      // Char counter
+      const textarea = document.getElementById('mensaje');
+      textarea.addEventListener('input', () => {
+        document.getElementById('charCount').textContent = `${textarea.value.length} / 500`;
+      });
+    });
+
+    function showLoggedIn() {
+      document.getElementById('lockedNotice').style.display = 'none';
+      document.getElementById('userGreeting').classList.add('visible');
+      document.getElementById('greetingText').textContent = `Enviando como: ${userEmail}`;
+      document.getElementById('contactForm').classList.add('visible');
+      document.getElementById('navBtn').textContent = 'Cerrar sesión';
+    }
+
+    function handleNavBtn() {
+      if (loggedIn) {
+        // Logout
+        loggedIn = false;
+        userEmail = '';
+        localStorage.removeItem('biopet_user');
+        location.reload();
+      } else {
+        simulateLogin();
+      }
+    }
+
+    function simulateLogin() {
+      // In production this redirects to login.html
+      // For demo, we simulate a successful login
+      const email = prompt('Ingresa tu correo para iniciar sesión (demo):');
+      if (email && email.includes('@')) {
+        loggedIn = true;
+        userEmail = email.trim();
+        localStorage.setItem('biopet_user', userEmail);
+        showLoggedIn();
+      } else if (email !== null) {
+        alert('Por favor ingresa un correo válido.');
+      }
+    }
+
+    function sendEmail() {
+      const asunto = document.getElementById('asunto').value.trim();
+      const mensaje = document.getElementById('mensaje').value.trim();
+
+      if (!asunto) { alert('Por favor ingresa un asunto.'); return; }
+      if (!mensaje) { alert('Por favor escribe tu mensaje.'); return; }
+
+      const btn = document.getElementById('sendBtn');
+      btn.disabled = true;
+      btn.textContent = 'Enviando...';
+
+      // Build mailto link and open it
+      const to = 'biopetwoofco@gmail.com';
+      const subject = encodeURIComponent(`[BioPet] ${asunto}`);
+      const body = encodeURIComponent(`De: ${userEmail}\n\n${mensaje}`);
+      const mailtoLink = `mailto:${to}?subject=${subject}&body=${body}`;
+
+      window.location.href = mailtoLink;
+
+      // Show success after short delay
+      setTimeout(() => {
+        document.getElementById('userGreeting').style.display = 'none';
+        document.getElementById('contactForm').classList.remove('visible');
+        document.getElementById('successMsg').classList.add('visible');
+      }, 800);
+    }
+
+    function resetForm() {
+      document.getElementById('asunto').value = '';
+      document.getElementById('mensaje').value = '';
+      document.getElementById('charCount').textContent = '0 / 500';
+      document.getElementById('sendBtn').disabled = false;
+      document.getElementById('sendBtn').innerHTML = '<span>✉️</span> Enviar mensaje';
+      document.getElementById('successMsg').classList.remove('visible');
+      document.getElementById('userGreeting').style.display = '';
+      document.getElementById('contactForm').classList.add('visible');
+    }
+  </script>
+</body>
+</html>
